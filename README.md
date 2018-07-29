@@ -664,9 +664,22 @@ To sum up the two most common/used scan methods in nmap are:
       if we are not root, we could use the -sT)
   
 A table summarizing all the scans we have examined with the 
-possible results is in figure below.
+possible results can be observed below: 
 
-![alt text](img/nmapTypeOfScansSummary.jpg "Sum of Scans")
++---------------+-------------+---------+---------+-----------+---------------+
+| Type of Scan  |  App Res    |  RST    | ICMP33  |  ICMP3x   |    No Res     |
++---------------+-------------+---------+---------+-----------+---------------+
++---------------+-------------+---------+---------+-----------+---------------+
+|      U        |    open     |   /     | closed  | filtered  | open/filtered |
++---------------+-------------+---------+---------+-----------+---------------+
+|      T        |    open     | closed  |   /     | filtered  |   filtered    |
++---------------+-------------+---------+---------+-----------+---------------+
+|      S        |    open     | closed  |   /     | filtered  |   filtered    |
++---------------+-------------+---------+---------+-----------+---------------+
+|     NFX       |     /       | closed  |   /     | filtered  | open/filtered |
++---------------+-------------+---------+---------+-----------+---------------+
+|      A        | unfiltered  | closed  |   /     | filtered  |   filtered    |
++---------------+-------------+---------+---------+-----------+---------------+
 
 ## Performance and Timing
 
@@ -697,25 +710,25 @@ Other options to tune up the timing are:
 
 * --max-retries 3 #in this case the maximum number of retries is 3 
   before giving up.
-# --initial-rtt-timeout 2s #this tells how much time we are going 
+* --initial-rtt-timeout 2s #this tells how much time we are going 
   to wait after a packet is sent before retransmitting, once a 
   reply has been received, nmap adjusts this value accordingly
-# --min-rtt-timeout 1s, --max-rtt-timeout 5s #in addition to the 
+* --min-rtt-timeout 1s, --max-rtt-timeout 5s #in addition to the 
   initial rtt timeout, we can also set the minimum and the 
   maximum rtt value before retransmitting the packet
-# --host-timeout 15m #in this case the conversation will close 
+* --host-timeout 15m #in this case the conversation will close 
   after 15 minutes, a host that is skipped, won't have any report 
   on it
-# --scan-delay 20ms, --max-scan-delay 500ms #in this case we can 
+* --scan-delay 20ms, --max-scan-delay 500ms #in this case we can 
   set the delay between packet retransmission, this is used in 
   order to not flood the network, so how long nmap pauses is 
   controlled by these two options
-# --min-hostgroup 256, --max-hostgroup 2048 #these options control 
+* --min-hostgroup 256, --max-hostgroup 2048 #these options control 
   the size of the groups to be scanned
-# --min-parallelism 30, --max-parallelism 500 #ports are also 
+* --min-parallelism 30, --max-parallelism 500 #ports are also 
   scanned in parallel, these two options control the number of 
   parallel probes used on the host groups
-# --min-rate 100, --max-rate 200 #these options control the rate at 
+* --min-rate 100, --max-rate 200 #these options control the rate at 
   which packets are sent out, this rate is sent in \frac{packets}{s}
 
 ## Timing Templates
