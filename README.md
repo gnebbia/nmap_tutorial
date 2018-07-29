@@ -666,20 +666,14 @@ To sum up the two most common/used scan methods in nmap are:
 A table summarizing all the scans we have examined with the 
 possible results can be observed below: 
 
-+---------------+-------------+---------+---------+-----------+---------------+
-| Type of Scan  |  App Res    |  RST    | ICMP33  |  ICMP3x   |    No Res     |
-+---------------+-------------+---------+---------+-----------+---------------+
-+---------------+-------------+---------+---------+-----------+---------------+
-|      U        |    open     |   /     | closed  | filtered  | open/filtered |
-+---------------+-------------+---------+---------+-----------+---------------+
-|      T        |    open     | closed  |   /     | filtered  |   filtered    |
-+---------------+-------------+---------+---------+-----------+---------------+
-|      S        |    open     | closed  |   /     | filtered  |   filtered    |
-+---------------+-------------+---------+---------+-----------+---------------+
-|     NFX       |     /       | closed  |   /     | filtered  | open/filtered |
-+---------------+-------------+---------+---------+-----------+---------------+
-|      A        | unfiltered  | closed  |   /     | filtered  |   filtered    |
-+---------------+-------------+---------+---------+-----------+---------------+
+| Type of Scan |   App Res  |   RST  | ICMP33 |  ICMP3x  |     No Res    |
+|:------------:|:----------:|:------:|:------:|:--------:|:-------------:|
+|       U      |    open    |    /   | closed | filtered | open/filtered |
+|       T      |    open    | closed |    /   | filtered |    filtered   |
+|       S      |    open    | closed |    /   | filtered |    filtered   |
+|      NFX     |      /     | closed |    /   | filtered | open/filtered |
+|       A      | unfiltered | closed |    /   | filtered |    filtered   |
+
 
 ## Performance and Timing
 
