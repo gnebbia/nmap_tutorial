@@ -30,8 +30,8 @@ that can be applied. These tunings can help us in order to:
 ## NMAP
 
 NMAP (NETwork MAPper) is a security scanner used to discover 
-hosts and services on a computer network, thus creating a “map” 
-of the network. Performing a complete “network mapping” consists 
+hosts and services on a computer network, thus creating a "map" 
+of the network. Performing a complete "network mapping" consists 
 of four steps:
 
 1. Creation of the Network Map:this is done in order to identify 
@@ -151,20 +151,20 @@ we can run:
  # reverse dns lookup, to see if the two website match or don't
 ```
 anyway the reverse DNS resolution are heavy, and will take their 
-time, to avoid doing rDNS we must add the “-n” flag to nmap, 
+time, to avoid doing rDNS we must add the "-n" flag to nmap, 
 while there are other cases where we want to make a reverse DNS 
 for all the targets, even the not alive targets, in this case we 
-add the “-R” flag.
+add the "-R" flag.
 
 ## Port Scanning
 
-There are two technique to “Port Specification” in nmap:
+There are two technique to "Port Specification" in nmap:
 
-1. Explicitly using the “-p” flag
+1. Explicitly using the "-p" flag
 
 2. By reference using nmap-services
 
-### The “-p” flag
+### The "-p" flag
 
 We can specify:
 
@@ -188,11 +188,11 @@ specifications by:
 
 * name: ftp
 * wildcard: http* #all the services who contains http
-* top ports: we can try to see the top “n” ports (e.g., 5 ports) by doing a:
+* top ports: we can try to see the top "n" ports (e.g., 5 ports) by doing a:
   * --top-ports 5
 * port ratio: we specify the frequency range in this case
 
-It has to be noted that by default nmap will execute a “ --top-ports 1000”,
+It has to be noted that by default nmap will execute a " --top-ports 1000",
 so it will make scans on the top 1000 ports opened. 
 Remember that port specifications can be combined, for example:
 
@@ -206,7 +206,7 @@ Remember that port specifications can be combined, for example:
 Let's look at some way to obtain better output:
 
 * while in the interactive mode, if we are waiting for results we 
-  can press “Enter” and get some lines describing what nmap is 
+  can press "Enter" and get some lines describing what nmap is 
   doing
 
 * if we append the --reason in any case nmap is doing a port scan, 
@@ -215,7 +215,7 @@ Let's look at some way to obtain better output:
 
 * if we are only interested in the open ports, and not even the 
   filtered ones, so we must append --open
-* we can output the results in a file with: “-o”, we can save 
+* we can output the results in a file with: "-o", we can save 
   results into different formats:
 
   * N, normal format
@@ -244,7 +244,7 @@ to remember that each layer has its own:
 
 We remember that the Network Layer is the one responsible for the 
 movement or routing of packets across the network, the protocol 
-used on internet at this layer is the “IP” (Internet Protocol).
+used on internet at this layer is the "IP" (Internet Protocol).
 
 The Transport layer provides the flowof data between two hosts, 
 for the application layer above. Examples of protocols at this 
@@ -340,8 +340,8 @@ But there are conditions in which it is possible to probe with UDP:
   sending UDP packets we have a responsive service living on that 
   port, in this case we understand the host is alive
 * Common: Closed Port (if we send UDP packets to a very probable 
-  closed port, the target system replies with an ICMP “Port 
-  Unreachable” message packet, we usually can use this kind of 
+  closed port, the target system replies with an ICMP "Port 
+  Unreachable" message packet, we usually can use this kind of 
   technique to check if a system is up or not
 
 
@@ -363,12 +363,12 @@ The TCP protocol is:
 * Error-checked, it has some more error checking techniques
 
 The TCP protocol is similar to a phone call, when we use a phone 
-to call, we use the “phone protocol” without knowing it, indeed, 
+to call, we use the "phone protocol" without knowing it, indeed, 
 considering two persons A and B, what they do to start a call is:
 
-1. A requests a call to B with a “Ring”
-2. B replies “Hello?” to A
-3. A replies back “Hi” to B
+1. A requests a call to B with a "Ring"
+2. B replies "Hello?" to A
+3. A replies back "Hi" to B
 
 TCP establish a connection with a similar technique. The most 
 interesting fields in the TCP Header are:
@@ -396,7 +396,7 @@ with host B in TCP, what happens is:
 2. host B replies with a packet with SYN+ACK flags to A
 3. host A replies back with a packet with ACK flag
 
-this sequence is what is called “Three-way handshake”. After the 
+this sequence is what is called "Three-way handshake". After the 
 three-way handshake, data can flow and ACK packets can be sent as 
 confirm, then when A wants to terminate (finish) the conversation, 
 it sends a packet with the FIN flag, and B replies with a packet 
@@ -413,7 +413,7 @@ We can do host enumeration using TCP packets in nmap is possible through:
        SYN+ACK reply from host, and at this point we reply back with a 
        RST packet terminating the connection, and so without 
        concluding the 3 way handshake, this technique of closing 
-       connection after the first SYN+ACK reply is called “half-open scanning”
+       connection after the first SYN+ACK reply is called "half-open scanning"
     2. if the host is alive, and the port is closed, we receive a RST 
        packet from the host, and the connection is aborted, notice 
        that this is different from UDP where the reply is an ICMP 
@@ -435,10 +435,10 @@ network is the use of traceroute, traceroute is a tool that uses
 active probing to discover the physical connectivity or route, 
 between two networked systems. Traceroute works by manipulating 
 the TTL (Time to Live) field of the IP header with an ICMP probe 
-packet, as “echo request”. To execute a traceroute, nmap can use 
+packet, as "echo request". To execute a traceroute, nmap can use 
 ICMP, UDP or TCP probes; but the choice depends on the type of 
 scan we will want to execute. To enable traceroute, we just do in 
-nmap “--traceroute”, for example:
+nmap "--traceroute", for example:
 
 ```sh
  nmap -n -p 80 --traceroute 162.151.9.221 
@@ -516,8 +516,8 @@ scanning) as open/filtered ports typically don't respond so nmap
 has to time out and then retransmit whilst closed ports will send 
 a ICMP port unreachable error, which systems typically rate 
 limit. We can speed up our scan (if we are not concerned about 
-making a lot of traffic on the network) with the flag “-T 5” or “
--T 4”, the higher the number the faster the scan will be, but we 
+making a lot of traffic on the network) with the flag "-T 5" or "
+-T 4", the higher the number the faster the scan will be, but we 
 are even less precise with faster scan analysis.
 
 
@@ -605,7 +605,7 @@ together. We can perform these scans with:
 ```
 
 It has to be noticed that every TCP packet must have one of the 
-essential flags who are “SYN”, “ACK” or “RST”, if a packet 
+essential flags who are "SYN", "ACK" or "RST", if a packet 
 doesn't have none of these flags, then it has to be dropped; and 
 these three scans make use of packets with none of these flags, 
 so what happens is:
@@ -684,8 +684,8 @@ possible results can be observed below:
 
 ## Performance and Timing
 
-When we scan a target, we must deal with the “Performance vs 
-Accuracy” tradeoff, which is very important in network mapping. 
+When we scan a target, we must deal with the "Performance vs 
+Accuracy" tradeoff, which is very important in network mapping. 
 We can set for how much time nmap can probe a host, this will let 
 us spend only a certain amount of time on specific hosts, since 
 there is a probability we can spend a lot of time on the hosts 
@@ -736,8 +736,8 @@ Other options to tune up the timing are:
 
 
 Since nmap as we have seen has many options to set the 
-performance vs accuracy tradeoff, it even provides 6 “Timing 
-Templates” which will go from “super slow” to “crazy fast” which 
+performance vs accuracy tradeoff, it even provides 6 "Timing 
+Templates" which will go from "super slow" to "crazy fast" which 
 will let us not set every options manually. We can set one of 
 these 6 templates:
 
@@ -807,7 +807,7 @@ packet, based on the content of the packet header or sometimes on
 the content of the packet payload. 
 
 Decisions are primarily made based on the socket which is the 
-combination “SourceIP,SourcePort and DestIP,DestPort”. There are 
+combination "SourceIP,SourcePort and DestIP,DestPort". There are 
 generally three types of firewall:
 
 * Stateless Packet Filter Firewall
@@ -915,10 +915,10 @@ There are two other ways to evade a firewall:
 Fragmentation is useful since fragments are passed to the target 
 machine uninspected from the firewall. Fragmentation is more 
 effective when we split TCP header in different packets, in nmap 
-we can request a fragmentation with the “-f” option which will 
+we can request a fragmentation with the "-f" option which will 
 request a fragmentation of 8 byte chunks, while it is even 
-possible to use “-f-f” to achieve 16 byte chunks, or still we can 
-specify the chunk size by using “--mtu” and specifying the chunks, 
+possible to use "-f-f" to achieve 16 byte chunks, or still we can 
+specify the chunk size by using "--mtu" and specifying the chunks, 
 let's see some examples:
 
 ```sh
@@ -931,7 +931,7 @@ let's see some examples:
  nmap --mtu 24 223.23.23.12
 ```
 Since the TCP Header is 20 bytes, the packet sent is split into 3 
-fragments, when using the “-f” flag.
+fragments, when using the "-f" flag.
 
 When using fragmentation we must pay attention to two potential 
 issues:
@@ -949,8 +949,8 @@ issues:
 ##### Idle Scan
 
 This scan is based upon the fact that some systems use a 
-monotonicly increasing “id” field in the IP header when sending 
-packets out, these systems are called “idle systems” and if we 
+monotonicly increasing "id" field in the IP header when sending 
+packets out, these systems are called "idle systems" and if we 
 can find an idle system (i.e. a system who is using the id field 
 or increments it when sending packets out), we can perform a scan 
 that completely hides our identity, and this is very sneaky. Here 
@@ -991,7 +991,7 @@ and these kind of scans are of the form:
 ```
 
 Anyway this technique becomes effective only if we can find the 
-above defined “idle systems”, and we'll check this in the nmap 
+above defined "idle systems", and we'll check this in the nmap 
 scripting modules (to be precise this can be achieved with --script ipidseq); 
 now let's see an example of idle scan from nmap:
 
@@ -1059,19 +1059,19 @@ Let's see an example in action:
 ```
 
 Another technique is hiding ourself, this can be done through a 
-“source spoofing”, which can be done with “-S source-address”, in 
+"source spoofing", which can be done with "-S source-address", in 
 this case we make the IDS think that the sent packet is coming 
 from the mentioned ip address. This creates some interesting 
 traffic on the target system, but we won't get any additional 
 info, since the reply is sent to the mentioned ip address and not 
 to us, this can be useful only in the case of an idle scan. This 
-option can even have a “legitimate” use, indeed we can have 
+option can even have a "legitimate" use, indeed we can have 
 multiple network interfaces and different network addresses, so 
-with “-S sourceAddress” and “-r interface” we can set on which 
+with "-S sourceAddress" and "-r interface" we can set on which 
 interface or with which ip address we are sending our packets. 
 
 Another similar technique is the one of MAC spoofing, this can be 
-done with the “--spoof-mac” option, here we can specify:
+done with the "--spoof-mac" option, here we can specify:
 
 * Full MAC address
 * Prefix
@@ -1098,7 +1098,7 @@ Let's see some examples of the above mentioned options:
 ```
 
 Another technique to hide our scans is by flooding the IDS with 
-misleading data. The “-D” option in nmap allows us to specify 
+misleading data. The "-D" option in nmap allows us to specify 
 other addresses which will work as decoys. The 
 target system will see that he's been scanned from multiple 
 hosts, and won't know for sure which one has initiated the probe, 
@@ -1134,8 +1134,8 @@ better way. What we are interested in is:
 
 Versioning can also be used to let us solve abiguity some times, 
 as for example as some ports can be open/filtered, we can solve 
-these kind of doubts. Version detection is enabled by the flag “
--sV”, optionally we can even include a:
+these kind of doubts. Version detection is enabled by the flag "
+-sV", optionally we can even include a:
 
 ```sh
  --version-intensity <0-9> (default=7), where --version-light (=2) 
@@ -1153,9 +1153,9 @@ OS versioning can be very useful for several reasons, such as:
 network inventory, support/patching, discover unauthorized 
 devices, etc...
 
-OS Detection is enabled with the option “-O”, and it better works 
+OS Detection is enabled with the option "-O", and it better works 
 if on the system there is at least one closed and one opened 
-port, a useful option with this, can be to add the “-v” to be 
+port, a useful option with this, can be to add the "-v" to be 
 verbose. Other useful options related to OS detection are:
 
 * --osscan-limit #this will disable OS detection if no at least 
@@ -1173,7 +1173,7 @@ ports and do a:
 
 ```sh
  nmap -O -v -p 80,81 192.168.1.50 
- # we added even the “-v” to be verbose, and gather more 
+ # we added even the "-v" to be verbose, and gather more 
  # information from the output
 ```
 
@@ -1182,11 +1182,11 @@ ports and do a:
 The NMAP Scripting Engine (or NSE) is a capability who allows us 
 to extend nmap with user-defined plugins. Currently there are 400 
 scripts in the NSE library. The NMAP scripting engine is called 
-through the option “-sC”, which is equivalent to running “
---script=default”, so without specifying anything else, we are 
-going to call all the scripts in the category called “default”, 
-while if we want to specify a specific script, we can do: “
---script=list,of,scripts,comma,separated”, where in the list we 
+through the option "-sC", which is equivalent to running "
+--script=default", so without specifying anything else, we are 
+going to call all the scripts in the category called "default", 
+while if we want to specify a specific script, we can do: "
+--script=list,of,scripts,comma,separated", where in the list we 
 can even append entire categories of scripts. NMAP has 15 script 
 categories:
 
@@ -1208,21 +1208,21 @@ categories:
 
 And since it is impossible to know them all, it is hugely adviced 
 to read the documentation found online for the NSE. Many scripts 
-require additional arguments which can be specified with “
---scripts-args arg1=val1, arg2=val2,...”.
+require additional arguments which can be specified with "
+--scripts-args arg1=val1, arg2=val2,...".
 
 Let's see some example:
 
 ```sh
  nmap -sC -p 80 www.cnn.com 
  # in this case, we are executing all 
- # the scripts in the “default” category to run on port 80 of the 
+ # the scripts in the "default" category to run on port 80 of the 
  # cnn website
 ```
 ```sh
  nmap -p 80 --scipt http-chrono www.ibm.com 
  # in this case we are 
- # executing the script called “http-chrono” on the port 80 of the ibm website
+ # executing the script called "http-chrono" on the port 80 of the ibm website
 ```
 
 
@@ -1271,8 +1271,8 @@ see other examples:
  # in this case we are running the ipidseq script, this script will tell us 
  # if the mentioned target can be used as a zombie, indeed it checks 
  # if incremental packets are used on the target, if the response on a specific 
- # target is “unknown” or “all zeros”, then we cannot use that 
- # target as zombie, but if the response is “Incremental” then we 
+ # target is "unknown" or "all zeros", then we cannot use that 
+ # target as zombie, but if the response is "Incremental" then we 
  # can use that machine as a zombie
 ```
 ```sh
@@ -1304,8 +1304,8 @@ network:
 ```sh
  nmap -sn -n 192.168.25.0/24 
  # in this case, we disabled port 
- # scanning with “-sn” and we disabled host name resolution with “
- # -n”, in this way we get quickly the list of live hosts on the 
+ # scanning with "-sn" and we disabled host name resolution with "
+ # -n", in this way we get quickly the list of live hosts on the 
  # network, we didn't specify any specific option for host 
  # enumeration, since we are doing this operation in a local 
  # network, so no matter which options we would have used, it 
@@ -1356,9 +1356,9 @@ collected with, we first will start with a TCP scan:
 ```sh
  nmap -sS -iL ip.lst -oN ports.tcp 
  # in this case we do a TCP 
- # scan with the “half-open scan” technique using the “-sS” 
- # option, and we specify a file with hosts with “-iL” option, and 
- # we output the results to a “normal” file with the “-oN” option
+ # scan with the "half-open scan" technique using the "-sS" 
+ # option, and we specify a file with hosts with "-iL" option, and 
+ # we output the results to a "normal" file with the "-oN" option
 ```
 
 now execute a UDP scan with:
@@ -1366,9 +1366,9 @@ now execute a UDP scan with:
 ```sh
  nmap -sU -iL ip.lst -oN ports.udp 
  # in this case we do a UDP 
- # scan using the “-sU” option, and we specify a file with hosts 
- # with “-iL” option, and we output the results to a “normal” file 
- # with the “-oN” option
+ # scan using the "-sU" option, and we specify a file with hosts 
+ # with "-iL" option, and we output the results to a "normal" file 
+ # with the "-oN" option
 ```
 
 Now let's say we notice two systems with an interesting number of 
@@ -1385,7 +1385,7 @@ services versions, we'll do:
  # previous sections, in order to do a good software version 
  # retrieval we must give to the port scanner at least an opened 
  # port and at least a closed port, after we specify service 
- # version inspection with “-sV” and OS inspection with “-O”
+ # version inspection with "-sV" and OS inspection with "-O"
 ```
 
 now if we don't get an exact match, we may use some scripts as:
@@ -1419,7 +1419,7 @@ if we don't get any useful info we can try with:
  sudo nmap --script "vuln and not (dos or exploit or intrusive)" www.22hits.com
 ```
 
-in our case the last script gave “March Networks Command Client”, 
+in our case the last script gave "March Networks Command Client", 
 if we seach this on the internet we find out, that this is some 
 recording system.
 
@@ -1436,6 +1436,14 @@ vulnerabilities our system is affected we can do:
  sudo nmap --script "vuln and not (dos or exploit or intrusive)" www.22hits.com 
  # this is a safer version of the last command, since it won't execute exploits
 ```
+
+```sh
+ sudo nmap -sS -sV -O www.example.com --stats-every 1m
+ # this is useful, since it uses the option --stats-every 1m
+ # which prints the progress as a percentage every minute
+```
+
+
 ## Appendix A: Nmap Flags Cheatsheet
 
 Here we'll put an nmap cheatsheet, which wraps up all the Network 
@@ -1494,4 +1502,32 @@ for many situations.
 /9 255.128.0.0 8388606 Hosts 
 
 /8 255.0.0.0 16777214 Hosts
+
+
+## Appendix C: Typical Usage for Pentesting
+
+In a general pentest we may go with a simple:
+
+```sh
+ sudo nmap -sC -sV -oA outputfile ipaddress --stats-every 1m
+ # with the -sC flag we launch the common scripts
+ # this combination is one of the most commonly used during
+ # basic pentests or CTFs, it is also used by ippsec
+```
+
+```sh
+ sudo nmap -sV -O -sC -oA outputfile <ipaddress> --stats-every 1m
+ # this is a more complete scan, which tries also to attempt the guess
+ # of the OS
+```
+
+these combinations of flags/options/parameters gives us a good initial 
+point to start to pentest the machine, of course in the meanwhile, if
+we can do it, we could also launch a more accurate scan on every port
+with:
+
+```sh
+ sudo nmap -sV -p- -oA fulloutputfile <ipaddress> --stats-every 1m
+ # this checks all 65535 ports
+```
 
