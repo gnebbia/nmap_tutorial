@@ -1137,10 +1137,15 @@ as for example as some ports can be open/filtered, we can solve
 these kind of doubts. Version detection is enabled by the flag "
 -sV", optionally we can even include a:
 
-```sh
- --version-intensity <0-9> (default=7), where --version-light (=2) 
-  and --version-all (=9)
-```
+* `--version-intensity <0-9>`, with -sV it uses a default which
+  is equal to 7
+
+where:
+
+* `--version-light`, it is equivalent to a version intensity option
+  with a value of 2 
+* `--version-all` it is equivalent to a version intensity option
+  with a value of 9 
 
 Versioning can take a lot of time, so we should use it with care; 
 nad it is preferred to run the service versioning, on a single 
@@ -1443,6 +1448,11 @@ vulnerabilities our system is affected we can do:
  # which prints the progress as a percentage every minute
 ```
 
+```sh
+ sudo nmap -A -oA example www.example.com --stats-every 1m 
+ # the -A flag is the equivalent of -sC -sV -O,
+ # so it can be a very useful shortcut
+```
 
 ## Appendix A: Nmap Flags Cheatsheet
 
