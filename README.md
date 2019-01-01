@@ -1541,3 +1541,19 @@ with:
  # this checks all 65535 ports
 ```
 
+## Appendix D: Random Facts
+
+* My External Facing IP Address
+If we scan our router with either the local IP address or the external facing IP
+address, we can notice that the results are the same.
+
+This is because what happens is that when my network card realize I'm querying
+the external IP address which is actually a host in my LAN, it just fallbacks to
+the local IP Address, to perform a real external scan, we should perform the
+scan from an external network or used some internet based network scanner such
+as:  GRC shields up.
+
+* IP Cameras and other IoT
+If we can magically access our home IP camera or other devices without
+configuring our router, such as port forwarding or DMZ and so on, then the
+device sends data to the cloud.
