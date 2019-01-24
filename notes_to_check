@@ -1,0 +1,25 @@
+-sS (TCP SYN scan)  - farly accurate about |open| |closed| |filtered| and not obtrusive. Half open connection. syn --> |syn/ack| (open) |rst| (closed). No response or ICMP unreachable = filtered.
+
+-sT (TCP connect scan) - less accurate. full open TCP connection made by the OS, no raw packets, easier to be catched by an IDS
+
+-sU (UDP scans) - useful for scannin service on UDP like DNS, SNMP, DHCP etc. much slower
+
+-sI [zombie_ip] [target_ip] (Idle scan) - stealth scan that uses a zombie that has IP ID sequence generation: incremental.
+how to find a zombie: nmap -O -v [zombie_ip_to_test]
+how to exploit the zombie: use nmap -sI option and send a SYN packet to the zombie with hping3. If the IP\fragmentation ID is incrememted by 2, the port on the target is open. If the increment is of only 1, then the target's port is closed.
+
+-sN; -sF; -sX (TCP Null, FIN, Xmas scans) - sends a TCP packet without TCP flags,  with FIN set or with FIN, PSH and URG bits set (Christmas). If RST is received, port is closed, if no response is received port is open or filtered. OS like Windows, Cisco IOS and IBM OS/400 send always a RST response even if the port isn't closed. These kind of scans are more reliable on UNIX systems then and when a modern stateful firewall isn't in place.
+
+-sA (TCP ACK scan) - sends an ACK packet for testing the firewall. It isn't used to determine if a port is open or closed. If we don't get a response or a ICMP error the port is filtered else it's unfiltered.
+
+-sO (IP protocol scan) - useful for enumerating the supported IP protocols (TCP/UDP/ICMP). Any response from any protocol means the port is likely open. An ICMP protocol unreachable error proves the port is open but filtered. No response can mean the port is open | filtered.
+
+The -o option is used to output the result to a file: -oN (normal); -oX (xml format); -oG (greppable); -oS (sCRiPt KiDDi3 OutPU+)
+
+The -v or -vv option is used to enable and increase the verbosity level
+
+The -d or -d[number] option is used to enable and increase debug mode
+
+The --packet-trace option is amazing for understanding how nmap works or interpreting better a scan
+
+The --resume <logfilename> option allows to resume scans if saved with -oN o -oG only.
