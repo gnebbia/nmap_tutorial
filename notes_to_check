@@ -23,3 +23,16 @@ The -d or -d[number] option is used to enable and increase debug mode
 The --packet-trace option is amazing for understanding how nmap works or interpreting better a scan
 
 The --resume <logfilename> option allows to resume scans if saved with -oN o -oG only.
+
+
+FIREWALL/IDS EVASION
+
+Fragmentation: -f (Can't be used with -sT and -sV). Modern IDS are able to
+reassemble fragments :(
+
+Decoys: -D for sending packets from your IP and packets from spoofed IPs in
+order to fool the IDS
+example: nmap -sS -D 199.199.199.1,ME, 198.198.198.23 [target]. If ME isn't
+specified, the attacker's IP position is randomised. Decoys can't be used
+together with -sT and -sV.
+
