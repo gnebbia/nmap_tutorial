@@ -187,7 +187,7 @@ finding that port opened. We can make nmap-services port
 specifications by:
 
 * name: ftp
-* wildcard: http* #all the services who contains http
+* wildcard: `http*` #all the services who contains http
 * top ports: we can try to see the top "n" ports (e.g., 5 ports) by doing a:
   * --top-ports 5
 * port ratio: we specify the frequency range in this case
@@ -197,7 +197,7 @@ so it will make scans on the top 1000 ports opened.
 Remember that port specifications can be combined, for example:
 
 * -p 80,443,8080-8089
-* -p http,ftp*,25
+* -p http,`ftp*`,25
 * -p U:53, 123, 161 T:1-1024,3306
 
 
@@ -795,7 +795,7 @@ firewall to firewall. We can list as anti-scanning technologies:
 We are going to discuss each and how they will affect the result.
 
 
-### Firewall
+### Firewalls
 
 A firewall is a network security system that controls network 
 traffic passing between two networks, and is based on a 
@@ -811,7 +811,7 @@ combination "SourceIP,SourcePort and DestIP,DestPort". There are
 generally three types of firewall:
 
 * Stateless Packet Filter Firewall
-* Stateless Packet Filter Firewall
+* Stateful Packet Filter Firewall
 * Application (aka Proxy) Firewall
 
 We are not interested in the normal scans done with -sS or with 
@@ -835,7 +835,7 @@ rule, so if we send a:
   (In this case we are evading firewall)
 
 
-#### Stateful Firewall
+### Stateful Firewall
 
 Stateful firewall, look at inbound packets and make their 
 pass/drop decision based upon two objects:
@@ -858,7 +858,7 @@ receives:
   conversation with the socket so again it will drop the packet
 
 
-#### Application or Proxy Firewall
+### Application or Proxy Firewall
 
 In this case we have a complete application who inspects the 
 packets, and decides if it has to forward the packet or not. An 
@@ -884,7 +884,9 @@ Firewall Commonalities are:
 * Rate limiting
   * ICMP on UDP Scan
 
-#### Detecting a Firewall
+## Detecting and Evading a Firewall
+
+### Detecting Firewalls
 
 Detecting a firewall is not easy, the most common tools to detect 
 a firewall are:
@@ -903,14 +905,14 @@ The badsum option is called as:
 ```
 
 
-#### Evading a Firewall
+### Evading Firewalls
 
 There are two other ways to evade a firewall:
 
 * Fragmentation fields of the IP header
-* Idle Scan
+* Idle Scan (using Zombie Hosts)
 
-#####  Fragmentation fields of the IP Header
+####  Fragmentation fields of the IP Header
 
 Fragmentation is useful since fragments are passed to the target 
 machine uninspected from the firewall. Fragmentation is more 
@@ -946,7 +948,7 @@ issues:
   and we must use something else
 
 
-##### Idle Scan
+#### Idle Scan
 
 This scan is based upon the fact that some systems use a 
 monotonicly increasing "id" field in the IP header when sending 
@@ -980,6 +982,16 @@ happens is:
   * now we again send a packet to the printer, and if the printer 
     sends a packet with RST, ID=initialID+1, this means that the 
     inspected port is closed
+
+
+In order to find a zombie machine, we can use nmap or hping3, with nmap
+if we want to understand if a machine is a zombie we can do:
+
+```sh
+nmap -O -v <target>
+```
+If the machine is a zombie, we should see the message:
+"IP ID Sequence Generation: Incremental".
 
 
 Idle scans are sneaky and perform the check with the help of a 
@@ -1107,7 +1119,14 @@ or which one is innocent. An example is:
 ```sh
  nmap -D 56.23.52.98,12.34.18.9 218.45.187.23 
  # in this case the first two addresses will be the decoys, 
- and we are going to scan the third address
+ # and we are going to scan the third address
+```
+
+Another option is to use random decoys, we can do that like this:
+
+```sh
+ nmap -D RND:10 218.45.187.23
+ # here we use 10 random decoys
 ```
 
 Notice that the decoys are comma separated, and the more decoys 
