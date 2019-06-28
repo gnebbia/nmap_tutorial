@@ -1,0 +1,1436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head profile="http://gmpg.org/xfn/11"><script async="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/a_004"></script><script async="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/count.js"></script><script async="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/sdk.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Nmap – Techniques for Avoiding Firewalls | Penetration Testing Lab</title>
+		<link rel="pingback" href="https://pentestlab.blog/xmlrpc.php">
+		
+<!-- Async WordPress.com Remote Login -->
+
+<link rel="dns-prefetch" href="https://s2.wp.com/">
+<link rel="dns-prefetch" href="https://s1.wp.com/">
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://pentestlab.wordpress.com/">
+<link rel="dns-prefetch" href="https://s.pubmine.com/">
+<link rel="dns-prefetch" href="https://x.bidswitch.net/">
+<link rel="dns-prefetch" href="https://static.criteo.net/">
+<link rel="dns-prefetch" href="https://ib.adnxs.com/">
+<link rel="dns-prefetch" href="https://aax.amazon-adsystem.com/">
+<link rel="dns-prefetch" href="https://bidder.criteo.com/">
+<link rel="dns-prefetch" href="https://cas.criteo.com/">
+<link rel="dns-prefetch" href="https://gum.criteo.com/">
+<link rel="dns-prefetch" href="https://ads.pubmatic.com/">
+<link rel="dns-prefetch" href="https://gads.pubmatic.com/">
+<link rel="dns-prefetch" href="https://tpc.googlesyndication.com/">
+<link rel="dns-prefetch" href="https://ad.doubleclick.net/">
+<link rel="dns-prefetch" href="https://googleads.g.doubleclick.net/">
+<link rel="dns-prefetch" href="https://www.googletagservices.com/">
+<link rel="dns-prefetch" href="https://cdn.switchadhub.com/">
+<link rel="dns-prefetch" href="https://delivery.g.switchadhub.com/">
+<link rel="dns-prefetch" href="https://delivery.swid.switchadhub.com/">
+<link rel="alternate" type="application/rss+xml" title="Penetration Testing Lab » Feed" href="https://pentestlab.blog/feed/">
+<link rel="alternate" type="application/rss+xml" title="Penetration Testing Lab » Comments Feed" href="https://pentestlab.blog/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Penetration Testing Lab » Nmap – Techniques for Avoiding&nbsp;Firewalls Comments Feed" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/feed/">
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+			<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/s1.wp.com\/wp-includes\/js\/wp-emoji-release.min.js?m=1556893897h&ver=5.2-RC2-45286"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/wp-emoji-release.js" type="text/javascript" defer="defer"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="all-css-0-1" href="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/a_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-1-1" href="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/print.css" type="text/css" media="print">
+<!--[if IE]>
+<link rel='stylesheet' id='notepad-ie-css'  href='https://s2.wp.com/wp-content/themes/pub/notepad/ie.css?m=1273001598h&#038;ver=5.2-RC2-45286' type='text/css' media='all' />
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel='stylesheet' id='notepad-ie6-css'  href='https://s2.wp.com/wp-content/themes/pub/notepad/ie6.css?m=1273001598h&#038;ver=5.2-RC2-45286' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="all-css-6-1" href="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/a.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/a_003"></script>
+<link rel="stylesheet" id="all-css-0-2" href="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563h&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://pentestlab.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Password Security 101" href="https://pentestlab.blog/2012/04/01/password-security-101/">
+<link rel="next" title="Metasploit Framework Payload&nbsp;Commands" href="https://pentestlab.blog/2012/04/04/metasploit-framework-payload-commands/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/">
+<link rel="shortlink" href="https://wp.me/p2cWvm-9C">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fpentestlab.blog%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fpentestlab.blog%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nmap – Techniques for Avoiding Firewalls">
+<meta property="og:url" content="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/">
+<meta property="og:description" content="As a penetration tester you will come across with systems that are behind firewalls and they are blocking you from getting the information that you want.So you will need to know how to avoid the fi…">
+<meta property="article:published_time" content="2012-04-02T21:10:22+00:00">
+<meta property="article:modified_time" content="2012-04-03T01:04:31+00:00">
+<meta property="og:site_name" content="Penetration Testing Lab">
+<meta property="og:image" content="https://pentestlab.files.wordpress.com/2012/04/2.png">
+<meta property="og:image:width" content="614">
+<meta property="og:image:height" content="169">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:text:title" content="Nmap – Techniques for Avoiding&nbsp;Firewalls">
+<meta name="twitter:card" content="summary">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="shortcut icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s2.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://pentestlab.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://pentestlab.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://pentestlab.blog/osd.xml" title="Penetration Testing Lab">
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com">
+		<style id="wpcom-hotfix-masterbar-style">
+			@media screen and (min-width: 783px) {
+				#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
+					margin-top: 5px;
+				}
+			}
+		</style>
+		<style>
+.milestone-widget {
+	margin-bottom: 1em;
+}
+.milestone-content {
+	line-height: 2;
+	margin-top: 5px;
+	max-width: 17em;
+	padding: 0;
+	text-align: center;
+}
+.milestone-header {
+	background-color: #6f5e4e;
+	color: #fafad3;
+	line-height: 1.3;
+	margin: 0;
+	padding: .8em;
+}
+.milestone-header .event,
+.milestone-header .date {
+	display: block;
+}
+.milestone-header .event {
+	font-size: 120%;
+}
+.milestone-countdown .difference {
+	display: block;
+	font-size: 500%;
+	font-weight: bold;
+	line-height: 1.2;
+}
+.milestone-countdown,
+.milestone-message {
+	background-color: #fafad3;
+	border: 1px solid #644527;
+	border-top: 0;
+	color: #6f5e4e;
+	padding-bottom: 1em;
+}
+.milestone-message {
+	padding-top: 1em
+}
+</style>
+<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+<meta name="application-name" content="Penetration Testing Lab"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Articles  from the Pentesting Field"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://pentestlab.blog/feed/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="description" content="As a penetration tester you will come across with systems that are behind firewalls and they are blocking you from getting the information that you want.So you will need to know how to avoid the firewall rules that are in place and to discover information about a host.This step in a penetration testing called Firewall…">
+		<script type="text/javascript">
+		function __ATA_CC() {var v = document.cookie.match('(^|;) ?personalized-ads-consent=([^;]*)(;|$)');return v ? 1 : 0;}
+		var __ATA_PP = { pt: 1, ht: 0, tn: 'notepad', amp: false, siteid: 8982, blogid: 32637504, consent: __ATA_CC() };
+		var __ATA = __ATA || {};
+		__ATA.cmd = __ATA.cmd || [];
+		__ATA.criteo = __ATA.criteo || {};
+		__ATA.criteo.cmd = __ATA.criteo.cmd || [];
+		</script>
+		<script type="text/javascript" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/head.js" async=""></script><link rel="amphtml" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/amp/"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'none']);
+	_gaq.push(['_setAllowLinker', true]);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/ga.js"></script>
+	<style type="text/css"></style><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/services.css"></head>
+	<body class="post-template-default single single-post postid-596 single-format-standard mp6 customizer-styles-applied highlander-enabled highlander-light">
+		<div id="pagewrapper">
+				<div id="header">
+			<h1 id="logo">
+				<a href="https://pentestlab.blog/">Penetration Testing Lab</a>
+			</h1>
+			<p class="description">Articles  from the Pentesting Field</p>
+
+			<p class="socialmedia">
+				
+				
+				
+				
+							</p><!-- socialmedia -->
+
+			<div class="menu"><ul class="menu">
+<li><a href="https://pentestlab.blog/">Home</a></li><li class="page_item page-item-30 page_item_has_children"><a href="https://pentestlab.blog/pentesting-distros/">Pentesting Distros</a>
+<ul class="children">
+	<li class="page_item page-item-39"><a href="https://pentestlab.blog/pentesting-distros/backbox/">BackBox</a></li>
+	<li class="page_item page-item-32"><a href="https://pentestlab.blog/pentesting-distros/backtrack/">Backtrack</a></li>
+	<li class="page_item page-item-124"><a href="https://pentestlab.blog/pentesting-distros/blackbuntu/">Blackbuntu</a></li>
+	<li class="page_item page-item-163"><a href="https://pentestlab.blog/pentesting-distros/matriux/">Matriux</a></li>
+	<li class="page_item page-item-752"><a href="https://pentestlab.blog/pentesting-distros/weakerth4n/">Weakerth4n</a></li>
+</ul>
+</li>
+<li class="page_item page-item-47 page_item_has_children"><a href="https://pentestlab.blog/resources/">Resources</a>
+<ul class="children">
+	<li class="page_item page-item-408 page_item_has_children"><a href="https://pentestlab.blog/resources/papers/">Papers</a>
+	<ul class="children">
+		<li class="page_item page-item-1401"><a href="https://pentestlab.blog/resources/papers/web-application/">Web Application</a></li>
+	</ul>
+</li>
+	<li class="page_item page-item-86 page_item_has_children"><a href="https://pentestlab.blog/resources/presentations/">Presentations</a>
+	<ul class="children">
+		<li class="page_item page-item-1115"><a href="https://pentestlab.blog/resources/presentations/defcon/">Defcon</a></li>
+		<li class="page_item page-item-92"><a href="https://pentestlab.blog/resources/presentations/derbycon/">DerbyCon</a></li>
+		<li class="page_item page-item-1889"><a href="https://pentestlab.blog/resources/presentations/tools/">Tools</a></li>
+	</ul>
+</li>
+	<li class="page_item page-item-97 page_item_has_children"><a href="https://pentestlab.blog/resources/videos/">Videos</a>
+	<ul class="children">
+		<li class="page_item page-item-1009"><a href="https://pentestlab.blog/resources/videos/bsides/">BSides</a></li>
+		<li class="page_item page-item-396"><a href="https://pentestlab.blog/resources/videos/defcon/">Defcon</a></li>
+		<li class="page_item page-item-401"><a href="https://pentestlab.blog/resources/videos/derbycon/">DerbyCon</a></li>
+		<li class="page_item page-item-1105"><a href="https://pentestlab.blog/resources/videos/hack-in-paris/">Hack In Paris</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="page_item page-item-599 page_item_has_children"><a href="https://pentestlab.blog/submissions/">Submissions</a>
+<ul class="children">
+	<li class="page_item page-item-606"><a href="https://pentestlab.blog/submissions/submit-an-article/">Submit an Article</a></li>
+	<li class="page_item page-item-610"><a href="https://pentestlab.blog/submissions/submit-a-tool/">Submit a Tool</a></li>
+</ul>
+</li>
+<li class="page_item page-item-12 page_item_has_children"><a href="https://pentestlab.blog/toolkit/">Toolkit</a>
+<ul class="children">
+	<li class="page_item page-item-1895"><a href="https://pentestlab.blog/toolkit/scripts/">Scripts</a></li>
+</ul>
+</li>
+<li class="page_item page-item-79 page_item_has_children"><a href="https://pentestlab.blog/contact-the-lab/">Contact the Lab</a>
+<ul class="children">
+	<li class="page_item page-item-2"><a href="https://pentestlab.blog/contact-the-lab/about/">About</a></li>
+</ul>
+</li>
+</ul></div>
+
+		</div>
+		<!--/header -->
+
+		
+		<div id="wrapper">
+
+
+	<div id="content">
+
+		<p class="post-nav">
+			<span class="previous">
+				<a href="https://pentestlab.blog/2012/04/01/password-security-101/" rel="prev">Password Security 101</a>			</span>
+			<span class="next">
+				<a href="https://pentestlab.blog/2012/04/04/metasploit-framework-payload-commands/" rel="next">Metasploit Framework Payload&nbsp;Commands</a>			</span>
+		</p>
+
+	
+		<div class="post-596 post type-post status-publish format-standard hentry category-information-gathering tag-firewall tag-firewall-evasion tag-nmap" id="post-596">
+			<h2 class="post-title">
+				Nmap – Techniques for Avoiding&nbsp;Firewalls			</h2>
+			<p class="post-date">
+				April 2, 2012			</p>
+			<p class="post-data">
+				<span class="postauthor">
+					<a href="https://pentestlab.wordpress.com/" title="Visit netbiosX’s website" rel="author external">netbiosX</a>				</span>
+				<span class="postcategory">
+					<a href="https://pentestlab.blog/category/information-gathering/" rel="category tag">Information Gathering</a>				</span>
+				<span class="posttag"><a href="https://pentestlab.blog/tag/firewall/" rel="tag">Firewall</a>, <a href="https://pentestlab.blog/tag/firewall-evasion/" rel="tag">Firewall Evasion</a>, <a href="https://pentestlab.blog/tag/nmap/" rel="tag">Nmap</a></span>				<span class="postcomment">
+					<a href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/#comments">14 Comments</a>				</span>
+							</p>
+			<div class="post-content">
+				<p>As a penetration tester you will come across with systems that 
+are behind firewalls and they are blocking you from getting the 
+information that you want.So you will need to know how to avoid the 
+firewall rules that are in place and to discover information about a 
+host.This step in a penetration testing called Firewall Evasion Rules.</p>
+<p>Nmap is offering a lot of options about Firewall evasion so in this article we will explore these options.</p>
+<p><span style="color:#ff0000;"><strong>Fragment Packets</strong></span></p>
+<p>This technique was very effective especially in the old days however 
+you can still use it if you found a firewall that is not properly 
+configured.The Nmap offers that ability to fragment the packets while 
+scanning with the <span style="color:#0000ff;"><strong>-f</strong> </span>option so it can bypass the packet inspection of firewalls.</p>
+<div data-shortcode="caption" id="attachment_649" style="width: 485px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/22.png"><img aria-describedby="caption-attachment-649" data-attachment-id="649" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/2-19/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/22.png?w=500" data-orig-size="475,196" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Fragment Packets – Nmap" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/22.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/22.png?w=500?w=475" class="size-full wp-image-649" title="Fragment Packets - Nmap" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/22.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/22.png 475w, https://pentestlab.files.wordpress.com/2012/04/22.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/22.png?w=300 300w" sizes="(max-width: 475px) 100vw, 475px"></a><p id="caption-attachment-649" class="wp-caption-text">Fragment Packets - Nmap</p></div>
+<p>&nbsp;</p>
+<p>In the next image we can see that Nmap is sending packets 8-bytes size when we are doing a scan with the <span style="color:#0000ff;"><strong>-f</strong></span> option.</p>
+<div data-shortcode="caption" id="attachment_651" style="width: 624px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/12.png"><img aria-describedby="caption-attachment-651" data-attachment-id="651" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/1-18/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/12.png?w=500" data-orig-size="893,267" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Fragment packet" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/12.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/12.png?w=500?w=500" class="size-full wp-image-651" title="Fragment packet" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/12.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/12.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/12.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/12.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/12.png?w=768 768w, https://pentestlab.files.wordpress.com/2012/04/12.png 893w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-651" class="wp-caption-text">Capture a fragment packet</p></div>
+<h5></h5>
+<p><span style="color:#ff0000;"><strong>Specify a specific MTU</strong></span></p>
+<p>Nmap is giving the option to the user to set a specific MTU (Maximum 
+Transmission Unit) to the packet.This is similar to the packet 
+fragmentation technique that we have explained above.During the scan 
+that size of the nmap will create packets with size based on the number 
+that we will give.In this example we gave the number 24 so the nmap will
+ create 24-byte packets causing a confusion to the firewall.Have in mind
+ that the MTU number must be a multiple of 8 (8,16,24,32 etc).&nbsp; You
+ can specify the MTU of your choice with the command <span style="color:#0000ff;"><strong>–mtu number target.</strong></span></p>
+<div data-shortcode="caption" id="attachment_655" style="width: 492px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/31.png"><img aria-describedby="caption-attachment-655" data-attachment-id="655" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/3-14/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/31.png?w=500" data-orig-size="482,193" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Specify a specific MTU to the packets" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/31.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/31.png?w=500?w=482" class="size-full wp-image-655" title="Specify a specific MTU to the packets" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/31.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/31.png 482w, https://pentestlab.files.wordpress.com/2012/04/31.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/31.png?w=300 300w" sizes="(max-width: 482px) 100vw, 482px"></a><p id="caption-attachment-655" class="wp-caption-text">Specify a specific MTU to the packets</p></div>
+<p>&nbsp;</p>
+<p><strong><span style="color:#ff0000;">Use Decoy addresses</span></strong></p>
+<p>In this type of scan you can instruct Nmap to spoof packets from 
+other hosts.In the firewall logs it will be not only our IP address but 
+also and the IP addresses of the decoys so it will be much harder to 
+determine from which system the scan started.There are two options that 
+you can use in this type of scan:</p>
+<ol>
+<li><span style="color:#0000ff;"><strong>nmap -D RND:10 [target]</strong></span> (Generates a random number of decoys)</li>
+<li><span style="color:#0000ff;"><strong>nmap -D decoy1,decoy2,decoy3</strong> </span>etc. (Manually specify the IP addresses of the decoys)</li>
+</ol>
+<div data-shortcode="caption" id="attachment_657" style="width: 551px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/0.png"><img aria-describedby="caption-attachment-657" data-attachment-id="657" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/specify-decoy-addresses-manually/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/0.png?w=500" data-orig-size="541,167" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Specify decoy addresses manually" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/0.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/0.png?w=500?w=500" class="size-full wp-image-657" title="Specify decoy addresses manually" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/0.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/0.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/0.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/0.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/0.png 541w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-657" class="wp-caption-text">Scanning with decoy addresses</p></div>
+<p>&nbsp;</p>
+<p>In the next image we can see that in the firewall log files exist 3 
+different IP address.One is our real IP and the others are the decoys.</p>
+<div data-shortcode="caption" id="attachment_660" style="width: 624px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/01.png"><img aria-describedby="caption-attachment-660" data-attachment-id="660" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/attachment/01/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/01.png?w=500" data-orig-size="638,218" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Log Files flooded with decoy addresses" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/01.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/01.png?w=500?w=500" class="size-full wp-image-660" title="Log Files flooded with decoy addresses" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/01.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/01.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/01.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/01.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/01.png 638w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-660" class="wp-caption-text">Log Files flooded with decoy addresses</p></div>
+<p>&nbsp;</p>
+<p>You need to have in mind that the host that you will use as decoys 
+must be online in order this technique to work.Also using many decoys 
+can cause network congestion so you may want to avoid that especially if
+ you are scanning the network of your client.</p>
+<p><span style="color:#ff0000;"><strong>Idle Zombie Scan</strong></span></p>
+<p>This technique allows you to use another host on the network that is 
+idle in order to perform a port scan to another host.The main advantage 
+of this method is that it very stealthy because the firewall log files 
+will record the IP address of the Zombie and not our IP.However in order
+ to have proper results we must found hosts that are idle on the 
+network.</p>
+<p>Metasploit framework has a scanner that can help us to discover hosts
+ that are idle on the network and it can be used while implementing this
+ type of scan.</p>
+<div data-shortcode="caption" id="attachment_645" style="width: 585px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/8.png"><img aria-describedby="caption-attachment-645" data-attachment-id="645" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/8-8/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/8.png?w=500" data-orig-size="575,289" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="ipidseq" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/8.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/8.png?w=500?w=500" class="size-full wp-image-645" title="ipidseq" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/8.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/8.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/8.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/8.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/8.png 575w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-645" class="wp-caption-text">Discover Zombies</p></div>
+<p>&nbsp;</p>
+<p>As we can see from the above image the scanner has discovered that 
+the IP addresses 192.168.1.67 and 192.168.1.69 are idle on the network 
+and are potential candidates for use on an Idle Zombie Scan.In order to 
+implement an Idle Zombie scan we need to use the command <span style="color:#0000ff;"><strong>nmap -sI [Zombie IP] [Target IP]</strong></span></p>
+<div data-shortcode="caption" id="attachment_646" style="width: 611px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/7.png"><img aria-describedby="caption-attachment-646" data-attachment-id="646" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/7-9/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/7.png?w=500" data-orig-size="601,259" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Executing an Idle Scan" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/7.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/7.png?w=500?w=500" class="size-full wp-image-646" title="Executing an Idle Scan" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/7.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/7.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/7.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/7.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/7.png 601w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-646" class="wp-caption-text">Executing an Idle Scan</p></div>
+<p>&nbsp;</p>
+<p>We can see the effectiveness of this scan just by checking the 
+firewall logs.As we can see the log files record the IP address of the 
+Zombie host (SRC=192.168.1.69) and not our IP address so our scan was 
+stealthy.</p>
+<div data-shortcode="caption" id="attachment_647" style="width: 624px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png"><img aria-describedby="caption-attachment-647" data-attachment-id="647" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/log-files-idle-scan/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png?w=500" data-orig-size="622,72" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Log Files – Idle Scan" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png?w=500?w=500" class="size-full wp-image-647" title="Log Files - Idle Scan" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/log-files-idle-scan.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/log-files-idle-scan.png 622w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-647" class="wp-caption-text">Firewall Log Files - Idle Scan</p></div>
+<h5></h5>
+<p><span style="color:#ff0000;"><strong>Source port number specification</strong></span></p>
+<p>A common error that many administrators are doing when configuring 
+firewalls is to set up a rule to allow all incoming traffic that comes 
+from a specific port number.The <span style="color:#0000ff;"><strong>–source-port</strong></span>
+ option of Nmap can be used to exploit this misconfiguration.Common 
+ports that you can use for this type of scan are: 20,53 and 67.</p>
+<div data-shortcode="caption" id="attachment_636" style="width: 510px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/11.png"><img aria-describedby="caption-attachment-636" data-attachment-id="636" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/1-17/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/11.png?w=500&amp;h=181" data-orig-size="500,181" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Source port scan" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/11.png?w=500&amp;h=181?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/11.png?w=500&amp;h=181?w=500" class="size-full wp-image-636" title="Source port scan" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/11.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/11.png 500w, https://pentestlab.files.wordpress.com/2012/04/11.png?w=150&amp;h=54 150w, https://pentestlab.files.wordpress.com/2012/04/11.png?w=300&amp;h=109 300w" sizes="(max-width: 500px) 100vw, 500px" width="500" height="181"></a><p id="caption-attachment-636" class="wp-caption-text">Source port scan</p></div>
+<h5></h5>
+<p><span style="color:#ff0000;"><strong>Append Random Data</strong></span></p>
+<p>Many firewalls are inspecting packets by looking at their size in 
+order to identify a potential port scan.This is because many scanners 
+are sending packets that have specific size.In order to avoid that kind 
+of detection you can use the command <strong><span style="color:#0000ff;">–data-length</span></strong>
+ to add additional data and to send packets with different size than the
+ default.In the image below we have changed the packet size by adding 25
+ more bytes.</p>
+<div data-shortcode="caption" id="attachment_642" style="width: 524px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/6.png"><img aria-describedby="caption-attachment-642" data-attachment-id="642" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/6-9/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/6.png?w=500" data-orig-size="514,197" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Adding random data to avoid detection" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/6.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/6.png?w=500?w=500" class="size-full wp-image-642" title="Adding random data to avoid detection" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/6.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/6.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/6.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/6.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/6.png 514w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-642" class="wp-caption-text">Adding random data to avoid detection</p></div>
+<p>&nbsp;</p>
+<p>The size of a typical packet that nmap sends to the target is 58 bytes as you can see in the image below.</p>
+<div data-shortcode="caption" id="attachment_643" style="width: 624px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/5.png"><img aria-describedby="caption-attachment-643" data-attachment-id="643" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/5-12/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/5.png?w=500" data-orig-size="890,319" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Typical packet from nmap" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/5.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/5.png?w=500?w=500" class="size-full wp-image-643" title="Typical packet from nmap" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/5.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/5.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/5.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/5.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/5.png?w=768 768w, https://pentestlab.files.wordpress.com/2012/04/5.png 890w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-643" class="wp-caption-text">Typical packet from nmap scan</p></div>
+<p>&nbsp;</p>
+<p>With the command that we have used <span style="color:#0000ff;"><strong>–data-length 25</strong></span>
+ we changed that value to 83 in order to avoid being discovered by 
+firewalls that will check for the default packet size that nmap 
+generates.</p>
+<div data-shortcode="caption" id="attachment_644" style="width: 624px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/4.png"><img aria-describedby="caption-attachment-644" data-attachment-id="644" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/4-12/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/4.png?w=500" data-orig-size="889,334" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="A sample of a packet that we have add 25 more bytes to avoid detection" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/4.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/4.png?w=500?w=500" class="size-full wp-image-644" title="A sample of a packet that we have add 25 more bytes to avoid detection" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/4.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/4.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/4.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/4.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/4.png?w=768 768w, https://pentestlab.files.wordpress.com/2012/04/4.png 889w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-644" class="wp-caption-text">A sample of a packet that we have add 25 more bytes to avoid detection</p></div>
+<p>&nbsp;</p>
+<p><span style="color:#ff0000;"><strong>Scan with Random Order</strong></span></p>
+<p>In this technique you can scan a number of hosts in random order and 
+not sequential.The command that you use to instruct Nmap to scan for 
+host in random order is <span style="color:#0000ff;"><strong>–randomize-hosts</strong></span>.This technique combined with slow timing options in nmap command can be very effective when you don’t want to alert firewalls.</p>
+<div data-shortcode="caption" id="attachment_641" style="width: 532px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/3.png"><img aria-describedby="caption-attachment-641" data-attachment-id="641" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/3-13/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/3.png?w=500" data-orig-size="522,451" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Scan hosts in random order" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/3.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/3.png?w=500?w=500" class="size-full wp-image-641" title="Scan hosts in random order" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/3.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/3.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/3.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/3.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/3.png 522w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-641" class="wp-caption-text">Scan hosts in random order</p></div>
+<h5></h5>
+<p><span style="color:#ff0000;"><strong>MAC Address Spoofing</strong></span></p>
+<p>Another method for bypassing firewall restrictions while doing a port
+ scan is by spoofing the MAC address of your host.This technique can be 
+very effective especially if there is a MAC filtering rule to allow only
+ traffic from certain MAC addresses so you will need to discover which 
+MAC address you need to set in order to obtain results.</p>
+<p>Specifically the<span style="color:#0000ff;"><strong> –spoof-mac</strong></span>
+ option gives you the ability to choose a MAC address from a specific 
+vendor,to choose a random MAC address or to set a specific MAC address 
+of your choice.Another advantage of MAC address spoofing is that you 
+make your scan more stealthier because your real MAC address it will not
+ appear on the firewall log files.</p>
+<p>Specify MAC address from a Vendor —-&gt; <span style="color:#0000ff;"><strong>–spoof-mac</strong></span> Dell/Apple/3Com</p>
+<p>Generate a random MAC address —-&gt; <span style="color:#0000ff;">—<strong>spoof-mac</strong></span> 0</p>
+<p>Specify your own MAC address —-&gt; <span style="color:#0000ff;">—<strong>spoof-mac</strong></span> 00:01:02:25:56:AE</p>
+<div data-shortcode="caption" id="attachment_638" style="width: 519px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/21.png"><img aria-describedby="caption-attachment-638" data-attachment-id="638" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/2-18/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/21.png?w=500" data-orig-size="509,197" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="MAC address Spoofing" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/21.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/21.png?w=500?w=500" class="size-full wp-image-638" title="MAC address Spoofing" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/21.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/21.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/21.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/21.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/21.png 509w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-638" class="wp-caption-text">MAC address Spoofing</p></div>
+<h5></h5>
+<p><span style="color:#ff0000;"><strong>Send Bad Checksums</strong></span></p>
+<p>Checksums are used by the TCP/IP protocol to ensure the data 
+integrity.However sending packets with incorrect checksums can help you 
+to discover information from systems that is not properly configured or 
+when you are trying to avoid a firewall.</p>
+<p>You can use the command <span style="color:#0000ff;"><strong>nmap –badsum IP</strong></span>
+ in order to send packets with bad checksums to your targets.In the 
+image below we didn’t get any results.This means that the system is 
+suitable configured.</p>
+<div data-shortcode="caption" id="attachment_632" style="width: 504px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/1.png"><img aria-describedby="caption-attachment-632" data-attachment-id="632" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/1-16/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/1.png?w=500" data-orig-size="494,138" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="Sending packets with bad checksum" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/1.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/1.png?w=500?w=494" class="size-full wp-image-632" title="Sending packets with bad checksum" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/1.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/1.png 494w, https://pentestlab.files.wordpress.com/2012/04/1.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/1.png?w=300 300w" sizes="(max-width: 494px) 100vw, 494px"></a><p id="caption-attachment-632" class="wp-caption-text">Sending packets with bad checksum</p></div>
+<p>&nbsp;</p>
+<p>You can see below a sample of a packet with bad checksum that we have sent:</p>
+<div data-shortcode="caption" id="attachment_633" style="width: 624px" class="wp-caption alignnone"><a href="https://pentestlab.files.wordpress.com/2012/04/2.png"><img aria-describedby="caption-attachment-633" data-attachment-id="633" data-permalink="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/2-17/" data-orig-file="https://pentestlab.files.wordpress.com/2012/04/2.png?w=500" data-orig-size="741,205" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="A packet with bad checksum" data-image-description="" data-medium-file="https://pentestlab.files.wordpress.com/2012/04/2.png?w=500?w=300" data-large-file="https://pentestlab.files.wordpress.com/2012/04/2.png?w=500?w=500" class="size-full wp-image-633" title="A packet with bad checksum" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/2.png" alt="" srcset="https://pentestlab.files.wordpress.com/2012/04/2.png?w=500 500w, https://pentestlab.files.wordpress.com/2012/04/2.png?w=150 150w, https://pentestlab.files.wordpress.com/2012/04/2.png?w=300 300w, https://pentestlab.files.wordpress.com/2012/04/2.png 741w" sizes="(max-width: 500px) 100vw, 500px"></a><p id="caption-attachment-633" class="wp-caption-text">A packet with bad checksum</p></div>
+<p>&nbsp;</p>
+<p><span style="color:#ff0000;"><strong>Conclusion</strong></span></p>
+<p>We have seen that Nmap offers a variety of methods that it can be 
+used to avoid a firewall that exists on the network that we are scanning
+ and to get proper results from the target host.The problem in many of 
+the cases that we have seen is the bad configuration of Firewalls that 
+allowed us to get results from the target.So in a network that have IDS 
+and firewalls properly configured many of the techniques may not 
+work.Every situation is different so you need to decide which one will 
+work for you.</p>
+<div id="atatags-370373-5cd0bc2f3bba0">
+        <script type="text/javascript">
+            __ATA.cmd.push(function() {
+                __ATA.initVideoSlot('atatags-370373-5cd0bc2f3bba0', {
+                    sectionId: '370373',
+                    format: 'inread'
+                });
+            });
+        </script>
+    </div>		<div class="wpcnt">
+			<div class="wpa wpmrec" style="display: none !important;">
+				<span class="wpa-about">Advertisements</span>
+				<div class="u">		<div style="padding-bottom:15px;width:300px;height:250px;float:left;margin-right:5px;margin-top:0px">
+			<div id="atatags-26942-5cd0bc2f3bbca">
+				<script type="text/javascript">
+				__ATA.cmd.push(function() {
+					__ATA.initSlot('atatags-26942-5cd0bc2f3bbca',  {
+						collapseEmpty: 'before',
+						sectionId: '26942',
+						location: 120,
+						width: 300,
+						height: 250
+					});
+				});
+				</script>
+			</div>
+		</div>		<div style="padding-bottom:15px;width:300px;height:250px;float:left;margin-top:0px">
+			<div id="atatags-114160-5cd0bc2f3bbd7">
+				<script type="text/javascript">
+				__ATA.cmd.push(function() {
+					__ATA.initSlot('atatags-114160-5cd0bc2f3bbd7',  {
+						collapseEmpty: 'before',
+						sectionId: '114160',
+						location: 130,
+						width: 300,
+						height: 250
+					});
+				});
+				</script>
+			</div>
+		</div></div>
+				
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-rating-enabled sd-like-enabled sd-sharing-enabled"><div class="sd-block sd-rating"><h3 class="sd-title">Rate this:</h3><div class="pd-rating" id="pd_rating_holder_5556500_post_596"></div></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-596" class="share-twitter sd-button share-icon" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-596" class="share-facebook sd-button share-icon" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span>Facebook</span></a></li><li class="share-linkedin"><a rel="nofollow noopener noreferrer" data-shared="sharing-linkedin-596" class="share-linkedin sd-button share-icon" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span>LinkedIn</span></a></li><li class="share-pinterest"><a rel="nofollow noopener noreferrer" data-shared="sharing-pinterest-596" class="share-pinterest sd-button share-icon" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span>Pinterest</span></a></li><li class="share-reddit"><a rel="nofollow noopener noreferrer" data-shared="" class="share-reddit sd-button share-icon" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-tumblr"><a rel="nofollow noopener noreferrer" data-shared="" class="share-tumblr sd-button share-icon" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?share=tumblr&amp;nb=1" target="_blank" title="Click to share on Tumblr"><span>Tumblr</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-32637504-596-5cd0bc2f3d80e" data-src="//widgets.wp.com/likes/index.html?ver=20190321#blog_id=32637504&amp;post_id=596&amp;origin=pentestlab.wordpress.com&amp;obj_id=32637504-596-5cd0bc2f3d80e&amp;domain=pentestlab.blog" data-name="like-post-frame-32637504-596-5cd0bc2f3d80e"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-32637504-596-5cd0bc2f3d80e" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/index.html" width="100%" height="55px" frameborder="0"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="1081" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://pentestlab.blog/2012/08/17/nmap-cheat-sheet/" title="Nmap Cheat Sheet
+
+Basic Scanning Techniques Scan a single target ---&gt; nmap [target] Scan multiple targets ---&gt; nmap [target1,target2,etc] Scan a list of targets ----&gt; nmap -iL [list.txt] Scan a range of hosts ----&gt; nmap [range of IP addresses] Scan an entire subnet ----&gt; nmap [IP address/cdir] Scan random hosts ----&gt; nmap -iR…" rel="nofollow" data-origin="596" data-position="0">Nmap Cheat Sheet</a></span><span class="jp-relatedposts-post-context">In "General Lab Notes"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="388" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://pentestlab.blog/2012/03/08/nmap-scripting-engine-basic-usage-2/" title="Nmap Scripting Engine - Basic Usage
+
+Nmap is not only a port scanner that could be used for scanning ports on a machine but also contains a script engine that offers the ability to execute scripts that could be used for more in-depth discovery of a target. Nmap includes a variety of ready-made scripts that could…" rel="nofollow" data-origin="596" data-position="1">Nmap Scripting Engine - Basic Usage</a></span><span class="jp-relatedposts-post-context">In "Information Gathering"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="1786" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://pentestlab.blog/2013/02/16/information-gathering-with-nmap/" title="Information Gathering With Nmap
+
+Nmap is tool that can perform various activities in a penetration test.The function of NSE (Nmap Scripting Engine) and the scripts that have written so far they can transform Nmap to a multi purpose tool.For example we can use Nmap during the information gathering stage of a penetration test just…" rel="nofollow" data-origin="596" data-position="2">Information Gathering With Nmap</a></span><span class="jp-relatedposts-post-context">In "Information Gathering"</span></p></div></div></div>			</div>
+					</div>
+		<!--/post -->
+
+		
+<!-- You can start editing here. -->
+
+	<h4 id="comments">
+		14 Comments		<em>(<a href="#respond">+add yours?</a>)</em>
+	</h4>
+
+	<div class="comment-nav">
+		<span class="previous"></span>
+		<span class="next"></span>
+	</div>
+
+	<ol class="commentlist snap_preview">
+			<li class="comment even thread-even depth-1 highlander-comment" id="comment-83">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/419ff1537f48f5d2e9114681877f4a7e.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-419ff1537f48f5d2e9114681877f4a7e-0" width="48" height="48">			<cite><a href="http://anon.com/" rel="external nofollow" class="url">anon</a></cite><br>
+			<small>
+				<strong>Apr 03, 2012</strong> @ 21:39:05							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-83">
+			
+			<p>I just wanted to thank you for writing this entry.  I really enjoyed the information you posted.  Isn’t nmap great? <img draggable="false" class="emoji" alt="🙂" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/1f642.svg"></p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=83#respond" data-commentid="83" data-postid="596" data-belowelement="commententry-83" data-respondelement="respond" aria-label="Reply to anon">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-85">
+		<p class="comment-author">
+						<cite><a href="http://hungryfoolishnerd.wordpress.com/2012/02/27/commonly-over-looked-nmap-techniques/" rel="external nofollow" class="url">commonly over-looked Nmap techniques | hungry foolish nerd</a></cite><br>
+			<small>
+				<strong>Apr 04, 2012</strong> @ 00:59:06							</small>
+		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-admingal even thread-even depth-1 highlander-comment" id="comment-89">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/70579ac5e7f874b948c20693e7a45e15.jpg" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-70579ac5e7f874b948c20693e7a45e15-0" width="48" height="48">			<cite><a href="http://marketingmaster.wordpress.com/" rel="external nofollow" class="url">Nathalie</a></cite><br>
+			<small>
+				<strong>Apr 04, 2012</strong> @ 22:36:01							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-89">
+			
+			<p>great summary!</p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=89#respond" data-commentid="89" data-postid="596" data-belowelement="commententry-89" data-respondelement="respond" aria-label="Reply to Nathalie">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-101">
+		<p class="comment-author">
+						<cite><a href="http://cyberoperations.wordpress.com/2012/04/07/security-news-8/" rel="external nofollow" class="url">Security News « CyberOperations</a></cite><br>
+			<small>
+				<strong>Apr 07, 2012</strong> @ 15:25:04							</small>
+		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-corehook even thread-even depth-1 highlander-comment" id="comment-103">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/7f9b0b9184b8ecd595113f143e85b738.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-7f9b0b9184b8ecd595113f143e85b738-0" width="48" height="48">			<cite>corehook</cite><br>
+			<small>
+				<strong>Apr 07, 2012</strong> @ 16:03:02							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-103">
+			
+			<p>Reblogged this on <a href="http://clickf1.cc/2012/04/07/217/" rel="nofollow">clickf1.cc – information security specialist</a> and commented:<br>
+Советую прочитать</p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=103#respond" data-commentid="103" data-postid="596" data-belowelement="commententry-103" data-respondelement="respond" aria-label="Reply to corehook">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-107">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/1e32bc20e106c5c4787e06b15d53ce9a.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-1e32bc20e106c5c4787e06b15d53ce9a-0" width="48" height="48">			<cite><a href="http://separallel.com/" rel="external nofollow" class="url">Alex</a></cite><br>
+			<small>
+				<strong>Apr 08, 2012</strong> @ 15:58:39							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-107">
+			
+			<p>Interesting article, never knew that you could specify a static MTU using nmap <img draggable="false" class="emoji" alt="🙂" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/1f642.svg"></p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=107#respond" data-commentid="107" data-postid="596" data-belowelement="commententry-107" data-respondelement="respond" aria-label="Reply to Alex">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="comment-109">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/ef9433e01e1a6c6f901a83bfd9c73611.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-ef9433e01e1a6c6f901a83bfd9c73611-0" width="48" height="48">			<cite>sdjeong</cite><br>
+			<small>
+				<strong>Apr 09, 2012</strong> @ 06:14:57							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-109">
+			
+			<p>thanks a lot. your information help to me so many. especially in nmap the -f option is very good tip.</p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=109#respond" data-commentid="109" data-postid="596" data-belowelement="commententry-109" data-respondelement="respond" aria-label="Reply to sdjeong">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-danielweis odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-113">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/47c0b0a1d0b5aa4bcab781c99f3e2f2b.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-47c0b0a1d0b5aa4bcab781c99f3e2f2b-0" width="48" height="48">			<cite>danielweis</cite><br>
+			<small>
+				<strong>Apr 09, 2012</strong> @ 20:44:38							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-113">
+			
+			<p>Reblogged this on <a href="http://danielweis.wordpress.com/2012/04/10/963/" rel="nofollow">Daniel Weis's I.T Security Blog</a> and commented:<br>
+Fantastic Post on Nmap Firewall evasion here, highly recommend the read,
+ all of these and more I perform on most  pentests however, the best 
+protection against these is a good IPS.</p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=113#respond" data-commentid="113" data-postid="596" data-belowelement="commententry-113" data-respondelement="respond" aria-label="Reply to danielweis">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="pingback even thread-even depth-1 highlander-comment" id="comment-289">
+		<p class="comment-author">
+						<cite><a href="http://vctecnologia.wordpress.com/2012/07/11/nmap-techniques-for-avoiding-firewalls-penetration-testing-lab/" rel="external nofollow" class="url">Nmap – Techniques for Avoiding Firewalls « Penetration Testing Lab « vctecnologia</a></cite><br>
+			<small>
+				<strong>Jul 12, 2012</strong> @ 03:42:49							</small>
+		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-1356">
+		<p class="comment-author">
+						<cite><a href="http://corenumb.wordpress.com/2012/11/27/nmap-techniques-for-avoiding-firewalls/" rel="external nofollow" class="url">Nmap – Techniques for Avoiding Firewalls « CoreNumb Security</a></cite><br>
+			<small>
+				<strong>Nov 27, 2012</strong> @ 14:42:13							</small>
+		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="pingback even thread-even depth-1 highlander-comment" id="comment-6372">
+		<p class="comment-author">
+						<cite><a href="http://dougvitale.wordpress.com/2011/11/07/nmap/" rel="external nofollow" class="url">Nmap, the Network Mapper | Doug Vitale Tech Blog</a></cite><br>
+			<small>
+				<strong>Jan 16, 2014</strong> @ 18:01:43							</small>
+		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-6373">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/7415e707e4f36f839fab9a32c4df7e83.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-7415e707e4f36f839fab9a32c4df7e83-0" width="48" height="48">			<cite><a href="http://www.zer0byte.com/" rel="external nofollow" class="url">Zer0byte</a></cite><br>
+			<small>
+				<strong>Jan 17, 2014</strong> @ 07:06:58							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-6373">
+			
+			<p>Thank You <img draggable="false" class="emoji" alt="🙂" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/1f642.svg"></p>
+<p>nmap -f 192.168.1.64 did the trick for me</p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=6373#respond" data-commentid="6373" data-postid="596" data-belowelement="commententry-6373" data-respondelement="respond" aria-label="Reply to Zer0byte">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-ariccobene even thread-even depth-1 highlander-comment" id="comment-6787">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/63e8d540593764815b26e8b6e7189996.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-63e8d540593764815b26e8b6e7189996-0" width="48" height="48">			<cite><a href="http://ariccobene.wordpress.com/" rel="external nofollow" class="url">ariccobene</a></cite><br>
+			<small>
+				<strong>Mar 17, 2014</strong> @ 12:17:49							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-6787">
+			
+			<p>Reblogged this on <a href="http://ariccobene.wordpress.com/2014/03/17/nmap-techniques-for-avoiding-firewalls/" rel="nofollow">A.Riccobene aka Ar10k1o</a> and commented:<br>
+Nmap techniques</p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=6787#respond" data-commentid="6787" data-postid="596" data-belowelement="commententry-6787" data-respondelement="respond" aria-label="Reply to ariccobene">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-8183">
+		<p class="comment-author">
+			<img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/7d53818195b6eb48ae2b00c85ec3e6f0.png" class="avatar avatar-48 grav-hashed grav-hijack" id="grav-7d53818195b6eb48ae2b00c85ec3e6f0-0" width="48" height="48">			<cite>dharmendra</cite><br>
+			<small>
+				<strong>May 26, 2014</strong> @ 04:45:58							</small>
+		</p>
+
+		
+		<div class="commententry" id="comment-8183">
+			
+			<p>how to prevent from -f command so that it get detected by firewall</p>
+		</div>
+
+
+		<p class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/?replytocom=8183#respond" data-commentid="8183" data-postid="596" data-belowelement="commententry-8183" data-respondelement="respond" aria-label="Reply to dharmendra">Reply</a>		</p>
+
+		
+</li><!-- #comment-## -->
+	</ol>
+
+ 
+
+
+	<div id="respond" class="comment-respond js">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="https://pentestlab.blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="32efe304a2"><input type="hidden" name="_wp_http_referer" value="/2012/04/02/nmap-techniques-for-avoiding-firewalls/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea aria-hidden="true" tabindex="-1" style="position: absolute; inset: -999px auto auto 0px; border: 0px none; padding: 0px; box-sizing: content-box; overflow-wrap: break-word; height: 0px !important; min-height: 0px !important; overflow: hidden; transition: none 0s ease 0s; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 19.6px; width: 498px;" class="autosizejs ">Enter your comment here...</textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 38px; overflow: hidden; overflow-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" class="nascar-signin-link" title="Login via Guest">
+									</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" class="nascar-signin-link" title="Login via WordPress.com">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"></path></g></svg>				</a>
+			</li>
+			<li>
+			</li><li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" class="nascar-signin-link" title="Login via Twitter">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"></path></g></svg>				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" class="nascar-signin-link" title="Login via Facebook">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"></path></g></svg>				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="url"></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/ad516503a11cd5ca435acc9bb6523536.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+						<p class="comment-form-posting-as pa-wordpress">
+			<strong></strong>
+			You are commenting using your WordPress.com account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"></path></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Google photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+						<p class="comment-form-posting-as pa-googleplus">
+			<strong></strong>
+			You are commenting using your Google account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" x="0px" y="0px" viewBox="0 0 60 60"><path fill="#519bf7" d="M56.3,30c0,-1.6 -0.2,-3.4 -0.6,-5h-3.1H42.2H30v10.6h14.8C44,39.3 42,42 39.1,43.9l8.8,6.8C53,46 56.3,39 56.3,30z"></path><path fill="#3db366" d="M30,57.5c6.7,0 13.1,-2.4 17.9,-6.8l-8.8,-6.8c-2.5,1.6 -5.6,2.4 -9.1,2.4c-7.2,0 -13.3,-4.7 -15.4,-11.2l-9.3,7.1C9.8,51.3 19.1,57.5 30,57.5z"></path><path fill="#fdc600" d="M5.3,42.2l9.3,-7.1c-0.5,-1.6 -0.8,-3.3 -0.8,-5.1s0.3,-3.5 0.8,-5.1l-9.3,-7.1C3.5,21.5 2.5,25.6 2.5,30S3.5,38.5 5.3,42.2z"></path><path fill="#f15b44" d="M40.1,17.4l8,-8C43.3,5.1 37,2.5 30,2.5C19.1,2.5 9.8,8.7 5.3,17.8l9.3,7.1c2.1,-6.5 8.2,-11.1 15.4,-11.1C33.9,13.7 37.4,15.1 40.1,17.4z"></path></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+						<p class="comment-form-posting-as pa-twitter">
+			<strong></strong>
+			You are commenting using your Twitter account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"></path></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+						<p class="comment-form-posting-as pa-facebook">
+			<strong></strong>
+			You are commenting using your Facebook account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"></path></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+
+
+
+<p class="form-submit" style="display: none;"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="596" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="a1f8cbf522"></p>
+<input type="hidden" name="genseq" value="1557183535">
+<p style="display: none;"></p>			<input type="hidden" id="ak_js" name="ak_js" value="1557183580802"></form>
+			</div><!-- #respond -->
+	<div style="clear: both"></div>
+
+		<p class="post-nav">
+			<span class="previous">
+				<a href="https://pentestlab.blog/2012/04/01/password-security-101/" rel="prev">Password Security 101</a>			</span>
+			<span class="next">
+				<a href="https://pentestlab.blog/2012/04/04/metasploit-framework-payload-commands/" rel="next">Metasploit Framework Payload&nbsp;Commands</a>			</span>
+		</p>
+
+	
+
+	</div>
+	<!--/content -->
+
+	<div id="sidebar">
+	
+<div id="search-2" class="widget widget_search"><h4 class="widgettitle">Search the Lab</h4><form method="get" id="searchform" action="https://pentestlab.blog/">
+	<input type="text" value="Search..." name="s" id="s">
+	<input type="hidden" id="searchsubmit">
+</form></div><div id="authors-2" class="widget widget_authors"><h4 class="widgettitle">Author</h4><ul><li><a href="https://pentestlab.blog/author/worm1984/"> <img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/4605db59f0637ffc3e084bd14d744ff7.jpg" class="avatar avatar-48 grav-hashed" id="grav-4605db59f0637ffc3e084bd14d744ff7-0" width="48" height="48"> <strong>netbiosX</strong></a></li></ul></div><div id="blog_subscription-2" class="widget widget_blog_subscription jetpack_subscription_widget"><h4 class="widgettitle"><label for="subscribe-field">Follow PenTest Lab </label></h4>
+            <form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="subscribe-blog">
+									<p>Enter your email address to follow this blog and receive notifications of new posts by email.</p>
+<p>Join 1,833 other followers</p>
+                    <p><input type="text" name="email" style="width: 95%; padding: 1px 2px" placeholder="Enter your email address" id="subscribe-field"></p>
+				
+                <p>
+                    <input type="hidden" name="action" value="subscribe">
+                    <input type="hidden" name="blog_id" value="32637504">
+                    <input type="hidden" name="source" value="https://pentestlab.blog/2012/04/02/nmap-techniques-for-avoiding-firewalls/">
+                    <input type="hidden" name="sub-type" value="widget">
+                    <input type="hidden" name="redirect_fragment" value="blog_subscription-2">
+					<input type="hidden" id="_wpnonce" name="_wpnonce" value="a83c8163e3">                    <button type="submit">
+	                    Follow                    </button>
+                </p>
+            </form>
+			
+</div>		<div id="recent-posts-2" class="widget widget_recent_entries">		<h4 class="widgettitle">Recent Posts</h4>		<ul>
+											<li>
+					<a href="https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/">Dumping Domain Password&nbsp;Hashes</a>
+									</li>
+											<li>
+					<a href="https://pentestlab.blog/2018/06/12/kerberoast/">Kerberoast</a>
+									</li>
+											<li>
+					<a href="https://pentestlab.blog/2018/06/06/command-and-control-browser/">Command and Control –&nbsp;Browser</a>
+									</li>
+											<li>
+					<a href="https://pentestlab.blog/2018/06/04/spn-discovery/">SPN Discovery</a>
+									</li>
+											<li>
+					<a href="https://pentestlab.blog/2018/05/28/situational-awareness/">Situational Awareness</a>
+									</li>
+					</ul>
+		</div><div id="categories-2" class="widget widget_categories"><h4 class="widgettitle">Categories</h4>		<ul>
+				<li class="cat-item cat-item-332"><a href="https://pentestlab.blog/category/coding/" title="Tutorials and scripts for penetration testers">Coding</a> (10)
+</li>
+	<li class="cat-item cat-item-574814200"><a href="https://pentestlab.blog/category/defense-evasion/">Defense Evasion</a> (20)
+</li>
+	<li class="cat-item cat-item-73931378"><a href="https://pentestlab.blog/category/exploitation-techniques/" title="Techniques and methods for exploiting services and systems">Exploitation Techniques</a> (19)
+</li>
+	<li class="cat-item cat-item-85145205"><a href="https://pentestlab.blog/category/external-submissions/" title="Articles from other professionals">External Submissions</a> (3)
+</li>
+	<li class="cat-item cat-item-79667871"><a href="https://pentestlab.blog/category/general-lab-notes/">General Lab Notes</a> (21)
+</li>
+	<li class="cat-item cat-item-681414"><a href="https://pentestlab.blog/category/information-gathering/" title="Collecting information from the targets">Information Gathering</a> (12)
+</li>
+	<li class="cat-item cat-item-32"><a href="https://pentestlab.blog/category/infrastructure/">Infrastructure</a> (2)
+</li>
+	<li class="cat-item cat-item-5325393"><a href="https://pentestlab.blog/category/maintaining-access/">Maintaining Access</a> (4)
+</li>
+	<li class="cat-item cat-item-323050620"><a href="https://pentestlab.blog/category/mobile-pentesting/">Mobile Pentesting</a> (7)
+</li>
+	<li class="cat-item cat-item-4425142"><a href="https://pentestlab.blog/category/network-mapping/" title="Identification of Live hosts,Network Analysis,Port Scanning,Operating System Fingerprinting,Service Fingerprinting">Network Mapping</a> (1)
+</li>
+	<li class="cat-item cat-item-15462947"><a href="https://pentestlab.blog/category/post-exploitation/">Post Exploitation</a> (13)
+</li>
+	<li class="cat-item cat-item-4350978"><a href="https://pentestlab.blog/category/privilege-escalation/">Privilege Escalation</a> (14)
+</li>
+	<li class="cat-item cat-item-141930"><a href="https://pentestlab.blog/category/red-team/">Red Team</a> (28)
+</li>
+	<li class="cat-item cat-item-17483"><a href="https://pentestlab.blog/category/social-engineering/" title="Attacks and methods for exploiting the human weaknesses ">Social Engineering</a> (11)
+</li>
+	<li class="cat-item cat-item-1981"><a href="https://pentestlab.blog/category/tools/" title="Find the tools you need for your Pen Test">Tools</a> (7)
+</li>
+	<li class="cat-item cat-item-811"><a href="https://pentestlab.blog/category/voip/" title="Techniques for assessing VoIP systems.">VoIP</a> (4)
+</li>
+	<li class="cat-item cat-item-2896"><a href="https://pentestlab.blog/category/web-application/">Web Application</a> (14)
+</li>
+	<li class="cat-item cat-item-355"><a href="https://pentestlab.blog/category/wireless/" title="Techniques for Wireless Assessments ">Wireless</a> (2)
+</li>
+		</ul>
+			</div><div id="archives-2" class="widget widget_archive"><h4 class="widgettitle">Archives</h4>		<ul>
+				<li><a href="https://pentestlab.blog/2018/07/">July 2018</a></li>
+	<li><a href="https://pentestlab.blog/2018/06/">June 2018</a></li>
+	<li><a href="https://pentestlab.blog/2018/05/">May 2018</a></li>
+	<li><a href="https://pentestlab.blog/2018/04/">April 2018</a></li>
+	<li><a href="https://pentestlab.blog/2018/01/">January 2018</a></li>
+	<li><a href="https://pentestlab.blog/2017/12/">December 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/11/">November 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/10/">October 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/09/">September 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/08/">August 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/07/">July 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/06/">June 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/05/">May 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/04/">April 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/03/">March 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/02/">February 2017</a></li>
+	<li><a href="https://pentestlab.blog/2017/01/">January 2017</a></li>
+	<li><a href="https://pentestlab.blog/2016/11/">November 2016</a></li>
+	<li><a href="https://pentestlab.blog/2016/09/">September 2016</a></li>
+	<li><a href="https://pentestlab.blog/2015/02/">February 2015</a></li>
+	<li><a href="https://pentestlab.blog/2015/01/">January 2015</a></li>
+	<li><a href="https://pentestlab.blog/2014/07/">July 2014</a></li>
+	<li><a href="https://pentestlab.blog/2014/04/">April 2014</a></li>
+	<li><a href="https://pentestlab.blog/2013/06/">June 2013</a></li>
+	<li><a href="https://pentestlab.blog/2013/05/">May 2013</a></li>
+	<li><a href="https://pentestlab.blog/2013/04/">April 2013</a></li>
+	<li><a href="https://pentestlab.blog/2013/03/">March 2013</a></li>
+	<li><a href="https://pentestlab.blog/2013/02/">February 2013</a></li>
+	<li><a href="https://pentestlab.blog/2013/01/">January 2013</a></li>
+	<li><a href="https://pentestlab.blog/2012/12/">December 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/11/">November 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/10/">October 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/09/">September 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/08/">August 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/07/">July 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/06/">June 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/04/">April 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/03/">March 2012</a></li>
+	<li><a href="https://pentestlab.blog/2012/02/">February 2012</a></li>
+		</ul>
+			</div><div id="twitter-2" class="widget widget_twitter"><h4 class="widgettitle"><a href="http://twitter.com/netbiosX">@ Twitter</a></h4><ul class="tweets">
+			<li>
+				Malicious DLL execution using Apple’s APSDaemon.exe signed binary <a href="https://0x00sec.org/t/malicious-dll-execution-using-apples-apsdaemon-exe-signed-binary/13409"> 0x00sec.org/t/malicious-dl…</a> 				<a href="http://twitter.com/netbiosX/statuses/1125513635852378113" class="timesince">1&nbsp;hour&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				Evil Clippy: MS Office maldoc assistant <a href="https://outflank.nl/blog/2019/05/05/evil-clippy-ms-office-maldoc-assistant/"> outflank.nl/blog/2019/05/0…</a> 				<a href="http://twitter.com/netbiosX/statuses/1125494767708667904" class="timesince">2&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				Hack the JWT Token <a href="https://habr.com/en/post/450054/"> habr.com/en/post/450054/</a> 				<a href="http://twitter.com/netbiosX/statuses/1125486914096832513" class="timesince">3&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href="http://twitter.com/GeorgoulisAlexi">GeorgoulisAlexi</a>: The end of the <a href="http://twitter.com/search?q=%23TheDurrells">#TheDurrells</a> is near  but our <img draggable="false" class="emoji" alt="❤" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/2764.svg"> will remain forever... <img draggable="false" class="emoji" alt="🎞" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/1f39e.svg"><img draggable="false" class="emoji" alt="🎬" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/1f3ac.svg"> <a href="http://twitter.com/search?q=%23ITV">#ITV</a> <a href="http://twitter.com/search?q=%23Spiros">#Spiros</a> <a href="http://twitter.com/search?q=%23Louisa">#Louisa</a> <a href="http://twitter.com/search?q=%23drama">#drama</a> <a href="https://t.co/KpSQ%E2%80%A6" rel="nofollow">https://t.co/KpSQ…</a> 				<a href="http://twitter.com/netbiosX/statuses/1125122658264338432" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href="http://twitter.com/marina12asla">marina12asla</a>: Episode 5 of <a href="http://twitter.com/search?q=%23TheDurrells">#TheDurrells</a> tonight at 8pm on @<a href="http://twitter.com/ITV">ITV</a>.  <a href="http://twitter.com/search?q=%23spyroswife">#spyroswife</a> <a href="http://twitter.com/search?q=%23dimitra">#dimitra</a> <a href="http://twitter.com/search?q=%23drama">#drama</a> <a href="http://twitter.com/search?q=%23actress">#actress</a> <a href="http://twitter.com/search?q=%23corfu">#corfu</a> @<a href="http://twitter.com/GeorgoulisAlexi">GeorgoulisAlexi</a> @<a href="http://twitter.com/PetitCon">PetitCon</a>… 				<a href="http://twitter.com/netbiosX/statuses/1125122568422404098" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			</ul><a href="http://twitter.com/netbiosX" class="twitter-follow-button" data-show-count="false" data-link-color="#644527" data-text-color="#6f5e4e">Follow @netbiosX</a></div><div id="blog-stats-2" class="widget widget_blog-stats"><h4 class="widgettitle">Pen Test Lab Stats</h4>		<ul>
+			<li>3,698,241 hits</li>
+		</ul>
+		</div><div id="linkcat-1356" class="widget widget_links"><h4 class="widgettitle">Blogroll</h4>
+	<ul class="xoxo blogroll">
+<li><a href="http://packetstormsecurity.org/" title="Exploits,Advisories,Tools,Whitepapers" target="_blank">Packetstorm</a>
+Exploits,Advisories,Tools,Whitepapers
+0</li>
+<li><a href="https://community.rapid7.com/community/metasploit/blog" title="Latest news about Metasploit Framework and tutorials" target="_blank">Metasploit</a>
+Latest news about Metasploit Framework and tutorials
+0</li>
+<li><a href="http://0x191unauthorized.blogspot.com/" rel="friend colleague" title="Tutorials" target="_blank">0x191unauthorized</a>
+Tutorials
+0</li>
+<li><a href="https://bechtsoudis.com/" title="Information about the WeBaCoo and other tutorials" target="_blank">The home of WeBaCoo</a>
+Information about the WeBaCoo and other tutorials
+0</li>
+<li><a href="http://blog.commandlinekungfu.com/" title="Command Line Tips and Tricks" target="_blank">Command Line Kung Fu</a>
+Command Line Tips and Tricks
+0</li>
+
+	</ul>
+</div>
+<div id="linkcat-82731373" class="widget widget_links"><h4 class="widgettitle">Exploit Databases</h4>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.exploit-db.com/" title="Exploits,PoC,Shellcodes,Papers " target="_blank">Exploit Database</a>
+Exploits,PoC,Shellcodes,Papers 
+0</li>
+<li><a href="http://www.metasploit.com/modules/" title="Exploit &amp; Auxiliary Modules" target="_blank">Metasploit Database</a>
+Exploit &amp; Auxiliary Modules
+0</li>
+<li><a href="http://www.1337day.com/" title="Remote,Local,Web Apps,Shellcode,PoC" target="_blank">Inj3ct0r Database</a>
+Remote,Local,Web Apps,Shellcode,PoC
+0</li>
+
+	</ul>
+</div>
+<div id="linkcat-79902494" class="widget widget_links"><h4 class="widgettitle">Pentest Blogs</h4>
+	<ul class="xoxo blogroll">
+<li><a href="http://carnal0wnage.attackresearch.com/" title="Ethical Hacking Tutorials" target="_blank">Carnal0wnage</a>
+Ethical Hacking Tutorials
+0</li>
+<li><a href="http://www.coresec.org/" title="Pentest tutorials,Code,Tools" target="_blank">Coresec</a>
+Pentest tutorials,Code,Tools
+0</li>
+<li><a href="http://www.notsosecure.com/folder2/" title="From Pentesters To Pentesters" target="_blank">Notsosecure</a>
+From Pentesters To Pentesters
+0</li>
+<li><a href="http://pentestmonkey.net/" title="Cheatsheets,Tools and SQL Injection" target="_blank">Pentestmonkey</a>
+Cheatsheets,Tools and SQL Injection
+0</li>
+<li><a href="http://www.pentester.co.in/" title="Web Application Testing,Tips,Testing Tools" target="_blank">Pentester</a>
+Web Application Testing,Tips,Testing Tools
+0</li>
+<li><a href="http://packetstormsecurity.org/files/tags/exploit/" title="Exploit Files" target="_blank">Packetstorm</a>
+Exploit Files
+0</li>
+<li><a href="http://www.room362.com/" title="Blatherings of a Security Addict">room362</a>
+Blatherings of a Security Addict
+0</li>
+<li><a href="http://www.darkoperator.com/" title="Shell is only the Beginning">darkoperator</a>
+Shell is only the Beginning
+0</li>
+<li><a href="http://www.irongeek.com/" title="Hacking Videos,Infosec Articles,Scripts" target="_blank">Irongeek</a>
+Hacking Videos,Infosec Articles,Scripts
+0</li>
+
+	</ul>
+</div>
+<div id="linkcat-7830" class="widget widget_links"><h4 class="widgettitle">Professional</h4>
+	<ul class="xoxo blogroll">
+<li><a href="http://social-engineer.org/" title="Information about the Social Engineering Framework,Podcasts and Resources" target="_blank">The Official Social Engineering Portal</a>
+Information about the Social Engineering Framework,Podcasts and Resources
+0</li>
+
+	</ul>
+</div>
+<div id="milestone_widget-2" class="widget milestone-widget"><h4 class="widgettitle">Next Conference</h4><div class="milestone-content"><div class="milestone-header"><strong class="event">Security B-Sides London</strong><span class="date">April 29th, 2014</span></div><div class="milestone-message">The big day is here.</div></div><!--milestone-content--></div><div id="facebook-likebox-3" class="widget widget_facebook_likebox"><h4 class="widgettitle"><a href="https://www.facebook.com/pentestlaboratory/">Facebook Page</a></h4>		<div id="fb-root"></div>
+		<div class="fb-page" data-href="https://www.facebook.com/pentestlaboratory/" data-width="200" data-height="432" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+		<div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/pentestlaboratory/"><a href="https://www.facebook.com/pentestlaboratory/">Facebook Page</a></blockquote></div>
+		</div>
+		</div>		<div class="wpcnt">
+			<div class="wpa wpmrec" style="display: none !important;">
+				<span class="wpa-about">Advertisements</span>
+				<div class="u">
+							<div style="padding-bottom:15px;width:300px;height:250px;">
+			<div id="atatags-286348-5cd0bc2f55d79">
+				<script type="text/javascript">
+				__ATA.cmd.push(function() {
+					__ATA.initSlot('atatags-286348-5cd0bc2f55d79',  {
+						collapseEmpty: 'before',
+						sectionId: '286348',
+						location: 140,
+						width: 300,
+						height: 250
+					});
+				});
+				</script>
+			</div>
+		</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!--/sidebar --></div>
+<!--/wrapper -->
+
+<div id="footer">
+	<p class="generator">
+		<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com.</a>
+	</p>
+	<p class="credits">
+			</p>
+</div>
+<!--/footer -->
+
+</div>
+<!--/pagewrapper -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if(document.getElementById("s")) {
+	document.getElementById("s").onfocus = function() {
+		if (this.value == "Search...")
+			this.value = "";
+	}
+	document.getElementById("s").onblur = function() {
+		if (this.value == '')
+			this.value = "Search...";
+	}
+}
+/* ]]> */
+</script>
+
+<!--  -->
+<script type="text/javascript" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-419ff1537f48f5d2e9114681877f4a7e">
+	</div>
+	<div class="grofile-hash-map-70579ac5e7f874b948c20693e7a45e15">
+	</div>
+	<div class="grofile-hash-map-7f9b0b9184b8ecd595113f143e85b738">
+	</div>
+	<div class="grofile-hash-map-1e32bc20e106c5c4787e06b15d53ce9a">
+	</div>
+	<div class="grofile-hash-map-ef9433e01e1a6c6f901a83bfd9c73611">
+	</div>
+	<div class="grofile-hash-map-47c0b0a1d0b5aa4bcab781c99f3e2f2b">
+	</div>
+	<div class="grofile-hash-map-7415e707e4f36f839fab9a32c4df7e83">
+	</div>
+	<div class="grofile-hash-map-63e8d540593764815b26e8b6e7189996">
+	</div>
+	<div class="grofile-hash-map-7d53818195b6eb48ae2b00c85ec3e6f0">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/pentestlab.wordpress.com\/public.api\/connect\/?action=request&domain=pentestlab.blog","logoutURL":"https:\/\/pentestlab.wordpress.com\/wp-login.php?action=logout&_wpnonce=5f2e0ecfb4","homeURL":"https:\/\/pentestlab.blog\/","postID":"596","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/a_002"></script>
+
+	<div id="carousel-reblog-box">
+		<form action="#" name="carousel-reblog">
+			<textarea id="carousel-reblog-content" name="carousel-reblog-content" placeholder="Add your thoughts here... (optional)"></textarea>
+			<label for="carousel-reblog-to-blog-id" id="carousel-reblog-lblogid">Post to</label>
+			<select name="carousel-reblog-to-blog-id" id="carousel-reblog-to-blog-id">
+						</select>
+
+			<div class="submit">
+				<span class="canceltext"><a href="#" class="cancel">Cancel</a></span>
+				<input type="submit" name="carousel-reblog-submit" class="button" id="carousel-reblog-submit" value="Reblog Post">
+				<input type="hidden" id="carousel-reblog-blog-id" value="32637504">
+				<input type="hidden" id="carousel-reblog-blog-url" value="https://pentestlab.blog">
+				<input type="hidden" id="carousel-reblog-blog-title" value="Penetration Testing Lab">
+				<input type="hidden" id="carousel-reblog-post-url" value="">
+				<input type="hidden" id="carousel-reblog-post-title" value="">
+			</div>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="3519890246"><input type="hidden" name="_wp_http_referer" value="/2012/04/02/nmap-techniques-for-avoiding-firewalls/">		</form>
+
+		<div class="arrow"></div>
+	</div>
+<script type="text/javascript" charset="UTF-8" id="polldaddyRatings"><!--//--><![CDATA[//><!--
+PDRTJS_settings_5556500_post_596={"id":5556500,"unique_id":"wp-post-596","title":"Nmap%20%26%238211%3B%20Techniques%20for%20Avoiding%26nbsp%3BFirewalls","permalink":"https:\/\/pentestlab.blog\/2012\/04\/02\/nmap-techniques-for-avoiding-firewalls\/","item_id":"_post_596"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_5556500_post_596 == 'undefined' ){PDRTJS_5556500_post_596 = new PDRTJS_RATING( PDRTJS_settings_5556500_post_596 );}}
+//--><!]]></script><script type="text/javascript" charset="UTF-8" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/rating.js"></script>
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/pentestlab.blog\/2012\/04\/02\/nmap-techniques-for-avoiding-firewalls\/":596};
+	</script>
+						<script type="text/javascript" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/widgets.js"></script>
+<link rel="stylesheet" id="all-css-0-3" href="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/jetpack-carousel.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var jpfbembed = {"appid":"249643311490","locale":"en_US"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"32637504","siteName":"Penetration Testing Lab","siteURL":"https:\/\/pentestlab.blog","icon":"<img alt='' src='https:\/\/s2.wp.com\/i\/logo\/wpcom-gray-white.png' class='avatar avatar-50' height='50' width='50' \/>","canManageOptions":"","canCustomizeSite":"","isFollowing":"","themeSlug":"pub\/notepad","signupURL":"https:\/\/wordpress.com\/start\/","loginURL":"https:\/\/wordpress.com\/log-in?redirect_to=https%3A%2F%2Fpentestlab.blog%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F&signup_flow=account&domain=pentestlab.blog","themeURL":"","xhrURL":"https:\/\/pentestlab.blog\/wp-admin\/admin-ajax.php","nonce":"be02f06e3b","isSingular":"1","isFolded":"","isLoggedIn":"","isMobile":"","subscribeNonce":"<input type=\"hidden\" id=\"_wpnonce\" name=\"_wpnonce\" value=\"a83c8163e3\" \/>","referer":"https:\/\/pentestlab.blog\/2012\/04\/02\/nmap-techniques-for-avoiding-firewalls\/","canFollow":"1","feedID":"56955615","statusMessage":"","customizeLink":"https:\/\/pentestlab.wordpress.com\/wp-admin\/customize.php?url=https%3A%2F%2Fpentestlab.wordpress.com%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F","postID":"596","shortlink":"https:\/\/wp.me\/p2cWvm-9C","canEditPost":"","editLink":"https:\/\/wordpress.com\/post\/pentestlab.blog\/596","statsLink":"https:\/\/wordpress.com\/stats\/post\/596\/pentestlab.blog","i18n":{"view":"View site","follow":"Follow","following":"Following","edit":"Edit","login":"Log in","signup":"Sign up","customize":"Customize","report":"Report this content","themeInfo":"Get theme: Notepad","shortlink":"Copy shortlink","copied":"Copied","followedText":"New posts from this site will now appear in your <a href=\"https:\/\/wordpress.com\/\">Reader<\/a>","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","editSubs":"Manage subscriptions","viewReader":"View site in Reader","viewReadPost":"View post in Reader","subscribe":"Sign me up","enterEmail":"Enter your email address","followers":"Join 1,833 other followers","alreadyUser":"Already have a WordPress.com account? <a href=\"https:\/\/wordpress.com\/log-in?redirect_to=https%3A%2F%2Fpentestlab.blog%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F&signup_flow=account&domain=pentestlab.blog\">Log in now.<\/a>","stats":"Stats"}};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https:\/\/pentestlab.blog\/wp-admin\/admin-ajax.php","nonce":"b5f52ee084","display_exif":"1","display_geo":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https:\/\/pentestlab.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fpentestlab.blog%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F","blog_id":"32637504","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"local_comments_commenting_as":"<fieldset><label for=\"email\">Email (Required)<\/label> <input type=\"text\" name=\"email\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-email-field\" \/><\/fieldset><fieldset><label for=\"author\">Name (Required)<\/label> <input type=\"text\" name=\"author\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-author-field\" \/><\/fieldset><fieldset><label for=\"url\">Website<\/label> <input type=\"text\" name=\"url\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-url-field\" \/><\/fieldset>","reblog":"Reblog","reblogged":"Reblogged","reblog_add_thoughts":"Add your thoughts here... (optional)","reblogging":"Reblogging...","post_reblog":"Post Reblog","stats_query_args":"blog=32637504&v=wpcom&tz=0&user_id=0&subd=pentestlab","is_public":"1","reblog_enabled":""};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/a"></script><div class="widget widget_eu_cookie_law_widget" style="display: block;"><div class="hide-on-button ads-active" data-hide-timeout="30" data-consent-expiration="180" id="eu-cookie-law">
+	<form method="post">
+		<input type="submit" value="Close and accept" class="accept">
+
+		Privacy &amp; Cookies: This site uses cookies. By continuing to use this website, you agree to their use. <br>
+To find out more, including how to control cookies, see here:
+		<a href="https://automattic.com/cookies">
+			Cookie Policy		</a>
+ </form>
+</div>
+</div><div id="fb-root"></div><div id="actionbar" class="actnbr-pub-notepad actnbr-has-follow"><ul><li class="actnbr-btn actnbr-hidden"> 			    	<a class="actnbr-action actnbr-actn-follow" href=""><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span>Follow</span></a> 			    	<div class="actnbr-popover tip tip-top-left actnbr-notice"> 			    		<div class="tip-arrow"></div> 			    		<div class="tip-inner actnbr-follow-bubble"></div> 			    	</div> 			    </li><li class="actnbr-ellipsis actnbr-hidden"> 			  <svg class="gridicon gridicon__ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><circle cx="5" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle></g></svg> 			  <div class="actnbr-popover tip tip-top-left actnbr-more"> 			  	<div class="tip-arrow"></div> 			  	<div class="tip-inner"> 				  <ul> 				    <li class="actnbr-sitename actnbr-hidden"><a href="https://pentestlab.blog/"><img alt="" src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/wpcom-gray-white.png" class="avatar avatar-50" width="50" height="50"> Penetration Testing Lab</a></li> 				   	<li class="actnbr-folded-customize actnbr-hidden"><a href="https://pentestlab.wordpress.com/wp-admin/customize.php?url=https%3A%2F%2Fpentestlab.wordpress.com%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F"><svg class="gridicon gridicon__customize" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M2 6c0-1.505.78-3.08 2-4 0 .845.69 2 2 2 1.657 0 3 1.343 3 3 0 .386-.08.752-.212 1.09.74.594 1.476 1.19 2.19 1.81L8.9 11.98c-.62-.716-1.214-1.454-1.807-2.192C6.753 9.92 6.387 10 6 10c-2.21 0-4-1.79-4-4zm12.152 6.848l1.34-1.34c.607.304 1.283.492 2.008.492 2.485 0 4.5-2.015 4.5-4.5 0-.725-.188-1.4-.493-2.007L18 9l-2-2 3.507-3.507C18.9 3.188 18.225 3 17.5 3 15.015 3 13 5.015 13 7.5c0 .725.188 1.4.493 2.007L3 20l2 2 6.848-6.848c1.885 1.928 3.874 3.753 5.977 5.45l1.425 1.148 1.5-1.5-1.15-1.425c-1.695-2.103-3.52-4.092-5.448-5.977z" data-reactid=".2.1.1:0.1b.0"></path></g></svg><span>Customize<span></span></span></a></li> 				    <li class="actnbr-folded-follow actnbr-hidden"><a class="actnbr-action actnbr-actn-follow" href=""><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span>Follow</span></a></li> 					<li class="actnbr-signup actnbr-hidden"><a href="https://wordpress.com/start/">Sign up</a></li> 				    <li class="actnbr-login actnbr-hidden"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fpentestlab.blog%2F2012%2F04%2F02%2Fnmap-techniques-for-avoiding-firewalls%2F&amp;signup_flow=account&amp;domain=pentestlab.blog">Log in</a></li> 				     				    <li class="actnbr-shortlink actnbr-hidden"><a href="https://wp.me/p2cWvm-9C">Copy shortlink</a></li> 				    <li class="flb-report actnbr-hidden"><a href="http://en.wordpress.com/abuse/">Report this content</a></li> 				     				     				    <li class="actnbr-subs actnbr-hidden"><a href="https://subscribe.wordpress.com/">Manage subscriptions</a></li> 				    <li class="actnbr-fold actnbr-hidden"><a href="">Collapse this bar</a></li> 			      </ul> 			    </div> 		      </div> 		    </li> 	      </ul></div>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-linkedin', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-tumblr', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+</script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>		<iframe src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+<script src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/w.js" type="text/javascript" async="" defer="defer"></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'32637504','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'32637504','v':'wpcom','tz':'0','user_id':'0','post':'596','subd':'pentestlab'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWtpP0NsWnVkPS9sL0ViLndld3BjQjF6Jl9aRTBjRmw/Y0dsPUJReWJLLjNxbVVEb3cudi1YWkRVTS1hLEVVLTh2TVJCNmJ5NXhRQ3IseFF4VEdRP1hJOEJDYnV2NmlIM0x8YkZfNTdGNn5QMkNdbXU1RGJtRTRYcC50Wnw9V29WZzEwP3NEYlU/en5CVkp4anBbUVtFejcyNTFoT01LVlQzYkJWS0RBbVRJa3k4b103SVhQbl82SnN8YkZOREVkVlkuL0tHSG55MVNiMHVtV3A/Zjc2cnViWGxdRnd4RE9yQUFHUllNLHx5ZFpaNXplZl9WZUsuUTlhcDh6NFtdeiV3OWU5WnJBdyx6Qm9pT0p5SDRIQ3JXeWNBUlJxZEUuTy1HLk1yWEM2NC5paUdXLDRwbw=='}]);
+_stq.push([ 'clickTrackerInit', '32637504', '596' ]);
+	</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+<img src="Nmap%20%E2%80%93%20Techniques%20for%20Avoiding%20Firewalls%20|%20Penetration%20Testing%20Lab_files/g.gif" alt=":)" id="wpstats"><style>#content > #right > .dose > .dosesingle,
+#content > #center > .dose > .dosesingle,
+#header + #content > #left > #rlblock_left,
+.wpmrec,
+[href^="http://www.faceporn.net/free?"]
+{display:none !important;}</style></body></html>

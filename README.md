@@ -1,13 +1,5 @@
 # The Semi-Serious Guide on Network Scanning with nmap
 
-Copyright (c) 2018 Giuseppe Nebbione. Permission is granted to copy, distribute 
-and/or modify this document under the terms of the GNU Free Documentation License,
-Version 1.3 or any later version published by the Free Software Foundation;
-with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
-A copy of the license is included in the section entitled "GNU Free Documentation License".
-
-
-
 ## Introduction
 
 One of the first steps to perform when we are pentesting is 
@@ -49,6 +41,21 @@ nmap:
  # tells us if the host is up, and it analyzes 
  # 1000 ports on the host determining which is closed and which is 
  # opened
+ # TO TRANSLATE
+ # Se non viene fornita alcuna opzione di host discovery, Nmap manda di default ad
+ # ogni macchina obiettivo un pacchetto ICMP di tipo "echo request", un pacchetto
+ # TCP SYN alla porta 443, un pacchetto TCP ACK alla porta 80 e un pacchetto ICMP
+ # di tipo "timestamp request" (per IPv6, il pacchetto ICMP di tipo "timestamp
+ # request" viene escluso dato che non fa parte del ICMPv6). Questa default è
+ # l'equivalente delle opzioni -PE -PS443 -PA80 -PP. Eccezioni a questo
+ # comportamento sono le scansioni ARP (per IPv4) e Neighbor Discovery (per IPv6)
+ # che sono usate per tutti gli obiettivi in una rete ethernet locale. Se Nmap
+ # viene lanciato da un utente non privilegiato all'interno di un ambiente UNIX, i
+ # probe di default saranno pacchetti SYN alle porte 80 e 443 inviati mediante la
+ # chiamata di sistema connect. Questo tipo di host discovery è spesso sufficiente
+ # quando si deve effettuare una scansione su reti locali, anche se per un
+ # security auditing si raccomanda di usare un set di opzioni più avanzato.
+ # In rete locale nmap usa sempre -PR perche' piu' efficiente
 ```
 
 In this basic example, nmap performs two operations:
@@ -60,7 +67,7 @@ Another basic example could be:
 
 ```sh
  nmap -sn 192.168.1.0/24 
- #in this case nmap just executes an enumeration of the 
+ # in this case nmap just executes an enumeration of the 
  # hosts on the network address
 ```
 Notice that Nmap has plenty of features, and can also integrate 
@@ -282,6 +289,9 @@ There are 3 types of request/response pairs:
 * timestamps; specified in nmap with -PP
 * address mask; specified in nmap with -PM
 
+The -PP and -PM requests can be used with some machines where ICMP ping requests
+have been blocked only.
+
 
 ### One Flow Communication in ICMP
 
@@ -350,7 +360,7 @@ Host enumeration using UDP packets is possible in nmap using:
 ```sh
 nmap -PU40125 ipaddress
  # where 40125 is the specified example port, which is 
- # even the default probed port if no port is specified
+ # also the default probed port if no port is specified
 ```
 
 
@@ -425,7 +435,7 @@ We can do host enumeration using TCP packets in nmap is possible through:
        since it let us understand that the system at the mentioned 
        address is alive
 * Other Options; Other possible options in nmap are:
-        * -Pn #avoids system enumeration and runs a port scan
+        * -Pn avoids system enumeration and runs a port scan
 
 
 ## Traceroute
@@ -503,12 +513,12 @@ now the responses can be:
 * -sU Error: In this case we receive from another host (router or 
   firewall) an ICMP message 3,10 (10 is dest filtered, while 9 is 
   net filtered) which means the port is filtered
-* -sU No Response: In this case there are two explanations:
+* -sU No Response: In this case there are two explanations (filtered|open):
   * there is a router or firewall is silently dropping the 
-    packets
+    packets (filtered)
   * the port is open and doesn't give replies, this can happen 
     since there are many UDP services who don't provide response, 
-    such as syslog
+    such as syslog (open)
 
 
 It has to be noticed that UDP scanning is slow (compared to TCP 
@@ -1201,6 +1211,61 @@ ports and do a:
  # information from the output
 ```
 
+## NATed Systems and Load Balancers
+
+Sometimes the IP address that we are scanning may be a firewall or a network
+device which is using NAT and behind this device there may be multiple systems.
+
+It can be important to understand that we are in this scenario, to understand
+this, we may first sweep all the ports if possible, and then try with subsets of
+the open port to check what kind of OS guessing is made by nmap, if the guessing
+is different depending on the chosen ports, then we most probably are dealing
+with a NATed network.
+
+In this cases we can use TCP timestamps to infer what is the configuration:
+
+* if timestamps are significantly different(> 1s): It is very likely that timestamps 
+  are coming from different systems
+* if timestamps are euql (<1s): It is likely that timestamps are coming from 
+  the same system
+* If only one port responds without set TCP timestamp options, it is
+  safe to assume that two different systems are responding. If TSopts
+  are not included in the answer or TSval = 0 on both ports, then no
+  knowledge can be gained, because it could be the same system having
+  timestamps disabled or timestamps got disabled on all systems.
+
+This can also be understood by using a simpler tool like `hping`.
+
+Known problems are that some firewalls or NAT gateways terminate the tcp connection 
+and build a new one -- in this way the timestamp is the one of the firewall/reverse-proxy 
+and in this scenario it is impossible to find out more about the network behind 
+the firewall/proxy/NAT gateway using timestamps.
+Another known problem comes out if multiple servers are run virtually (so as
+virtual machines or containers or any other virtualization technique) on the
+same machine, in this case they can have very similar timestamps.
+
+Another cool way to use TCP timestamps is to understand if we are dealing with
+load-balancers. While there are many ways of figuring this out, TCP timestamps
+offer us an alternative way to access this information.
+In practice a load balancer can be detected if there are different timestamps associated 
+to a single port, in this case the service is likely to be load-balanced.
+
+Currently the best way to defend against all possible information gathering done
+using TCP timestamps is disabling them, which comes with the cost of lost
+Protection Against Wrapped Sequence numbers (PAWS) and worse Round-Trip 
+Time Measurement (RTTM).
+
+Disabling timestamps can be done on GNU/Linux using:
+```sh
+echo 0 > /proc/sys/net/ipv4/tcp_timestamps
+```
+
+while on Windows can be done by executing:
+```sh
+Tcp1323Opts = 0
+```
+
+
 ## NMAP Scripting Engine
 
 The NMAP Scripting Engine (or NSE) is a capability who allows us 
@@ -1593,11 +1658,30 @@ care if devices respond to ping.
 
 An example is:
 ```sh
-nmap -sS -sV -vv -n -Pn -T5 101.53.64.1/24 -p80,443 -oG - | grep 'open' | grep -v
-'tcpwrapped'
+nmap -sS -sV -vv -n -Pn -T5 101.53.64.1/24 -p80,443 -oG - | grep 'open' | grep -v 'tcpwrapped'
 ```
 
 Once you get your access to the router, you can do a lot more, like DNS
 hijacking, steal username and passwords (for example: Social Media username
 passwords (FaceBook, Twitter, WebMail etc.)) using tcpdump/snoop on router’s
 interface and many more using ADSL router hack
+
+
+
+## Appendix E: Nmap and Tor
+
+One option to be able to scan an onionn address is:
+```sh
+proxychains4 nmap -Pn -sT -v scyllabyeatabumx.onion
+# we have to avoid pinging by using -Pn, since Tor does not play well with Tor
+# also since proxychains does not work with -sS e use a tcp connect scan with -sT
+```
+
+## Appendix F: Scripts
+
+
+### Bruteforce RTSP Directories
+
+```sh
+nmap --script rtsp-url-brute -p 554 <ip>
+```

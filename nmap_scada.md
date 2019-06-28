@@ -3,6 +3,52 @@
 * ICS stands for Industrial Control Systems
 * SCADA stands for Supervisory Control And Data Acquisition.
 
+In a nutshell, Industrial control systems (ICS) are “computers” (PLC) that
+control the world around you. They’re responsible for managing the air
+conditioning in your office, the turbines at a power plant, the lighting at the
+theatre or the robots at a factory
+
+## Examples of ICS/SCADA devices and applications
+
+Here we report some of the most common SCADA systems with relative common use cases and query used on shodan to find them.
+
+* BACnet (port 47808): is a communications protocol for building automation and control networks. It was designed to allow communication 
+  of building automation and control systems for applications such as heating, air-conditioning, lighting, and fire detection systems.
+* Codesys: over 250 device manufacturers from different industrial sectors offer automation devices with a CODESYS programming interface.
+  Consequently, thousands of users such as machine or plant builders around the world employ CODESYS for automation tasks.
+* DNP3 (port 20000): Distributed Network Protocol is a set of communications protocols used between components in process automation systems.
+  Its main use is in utilities such as electric and water companies.
+* EtherNet/IP (port 44818): was introduced in 2001 and is an industrial Ethernet network solution available for manufacturing automation.
+  General Electric (product:"general electric")
+* GE Industrial Solution: Service Request Transport Protocol (GE-SRTP) protocol is developed by GE Intelligent Platforms (earlier GE Fanuc) 
+  for transfer of data from PLCs.
+* HART IP: The HART Communications Protocol (Highway Addressable Remote Transducer Protocol) is an early implementation of Fieldbus, 
+  a digital industrial automation protocol. Its most notable advantage is that it can communicate over legacy wiring.
+* IEC 60870–5–104
+* IEC-104 (port 2404):is one of the IEC 60870 set of standards which define systems used for SCADA in electrical engineering and power system automation applications.
+* Mitsubishi Electric (product:“Mitsubishi”): MELSEC-Q Series use a proprietary network protocol for communication.
+  The devices are used by equipment and manufacturing facilities to provide high-speed, large volume data processing and machine control.
+* Modbus (port 502): a popular protocol for industrial control systems (ICS). It provides easy, raw access to the control system 
+  without requiring any authentication.
+* Omron: Factory Interface Network Service (FINS), is a network protocol used by Omron PLCs, over different physical networks like Ethernet,
+  Controller Link, DeviceNet and RS-232C.
+* PCWorx: is a protocol and program by Phoenix Contact used by a wide range of industries.
+  We can find them by doing the following queries:
+  port:20547,1962 PLC
+  port:2455 operating system
+  port:9600 response code
+* ProConOS:a high-performance PLC run time engine designed for both embedded and PC based control applications.
+* Red Lion (port 789 product:"Red Lion Controls"): Crimson v3.0 desktop software’s protocol used when communicating 
+  with the Red Lion Controls G306a human machine interface (HMI).
+* Siemens S7 (port 102): S7 Communication, a proprietary protocol that runs between programmable logic controllers 
+  (PLCs) of the Siemens S7 family.
+* Tridium Niagara Fox (ports 1911 and 4911): the Fox protocol, developed as part of the Niagara framework from Tridium, 
+  is most commonly seen in building automation systems (offices, libraries, Universities, etc.).
+
+
+
+## Scanning ICS/SCADA Devices
+
 ICS SCADA systems make up an important part in critical infrastructures found in
 power plants, chemical factories, oil refineries and also larger complexes.
 
@@ -24,6 +70,7 @@ Each of these ports correspond to a known ICS SCADA protocol.
 From various sources, this is what we know about ports used by SCADA systems:
 
 BACnet/IP               -- UDP/47808
+Siemens S7              -- TCP/102
 DNP3                    -- TCP/20000, UDP/20000
 EtherCAT                -- UDP/34980
 Ethernet/IP             -- TCP/44818, UDP/2222, UDP/44818
@@ -39,6 +86,8 @@ ROC PLus                -- TCP/UDP 4000
 Red lion                -- TCP/789
 Niagara Fox             -- TCP/1911, TCP/4911
 IEC-104                 -- TCP/2404
+Codesys                 -- Vendor application specific
+PCWorx                  -- TCP/20547, TCP/2455, TCP//9600
 
 Anyway there is a vast number of protocols being used by different types of
 vendors who don't release documentation on the ports used, anyway online there
@@ -222,12 +271,5 @@ With nmap we can enumerate them with:
 ```sh
 nmap -Pn -sT -p1962 --script pcworx-info <target>
 ```
-
-
-
-
-
-
-
 
 
