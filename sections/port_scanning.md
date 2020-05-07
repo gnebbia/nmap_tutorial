@@ -1,8 +1,8 @@
+# nmap Port Scanning
 
 There are two technique to "Port Specification" in nmap:
 
 1. Explicitly using the "-p" flag
-
 2. By reference using nmap-services
 
 ## The "-p" flag

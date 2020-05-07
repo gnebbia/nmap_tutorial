@@ -1,3 +1,4 @@
+# nmap: NATed systems and Load Balancers
 
 Sometimes the IP address that we are scanning may be a firewall or a network
 device which is using NAT and behind this device there may be multiple systems.
@@ -10,11 +11,11 @@ with a NATed network.
 
 In this cases we can use TCP timestamps to infer what is the configuration:
 
-* if timestamps are significantly different(> 1s): It is very likely that timestamps
+- if timestamps are significantly different(`> 1s`): It is very likely that timestamps
   are coming from different systems
-* if timestamps are euql (<1s): It is likely that timestamps are coming from
+- if timestamps are equal (`<1s`): It is likely that timestamps are coming from
   the same system
-* If only one port responds without set TCP timestamp options, it is
+- If only one port responds without set TCP timestamp options, it is
   safe to assume that two different systems are responding. If TSopts
   are not included in the answer or TSval = 0 on both ports, then no
   knowledge can be gained, because it could be the same system having

@@ -46,7 +46,8 @@ Another basic example could be:
 ```sh
  nmap -sn 192.168.1.0/24
  # in this case nmap just executes an enumeration of the
- # hosts on the network address
+ # hosts on the network address, it actually uses
+ # different techniques to understand if a host is alive or not
 ```
 Notice that Nmap has plenty of features, and can also integrate
 script capabilities.
@@ -80,3 +81,16 @@ divided in this way:
 * Script Scanning: execution of the user-mentioned scripts
 * Ouput: printing of the output on stdout or in files
 
+
+In addition, we may say that as a guideline an nmap operation
+can be subdivided into two major phases:
+- host discovery (or "ping phase"), controlled with the -P option
+- port scan, controlled with the -s option
+
+Also remember that the default behavior of nmap also depends on whether
+we are executing the command:
+- as root vs non-privileged user
+- on a local network segment vs to a remote host
+
+That's why sometimes using the same flags could lead to a slightly
+different network traffic.

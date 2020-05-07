@@ -1,3 +1,4 @@
+# nmap: ICMP
 
 ICMP is used to:
 
@@ -27,6 +28,29 @@ There are 3 types of request/response pairs:
 The -PP and -PM requests can be used with some machines where ICMP ping requests
 have been blocked only.
 
+For example we could perform a ping sweep similar to what the UNIX or Windows
+ping tool does to discover hosts on a network by doing:
+```sh
+nmap -sn -n -PE 172.28.128.0/24
+# -sn turns off the port scanning
+# -n  does not resolve the IP addresses into domain names
+# -PE uses ICMP type 8 messages to ping hosts on the subnet
+```
+
+Note that if we are on a local segment, we may also only see ARP packets,
+and this happens since nmap does as little as possible it can do to discover
+hosts. However we can see the ping probes whenever we try to perform this
+on a host outside our local network segment.
+
+Whenever we want to force ping probes within our local network segment
+we can do:
+```sh
+sudo nmap -sO -p 1 -n -Pn <target>
+# in this case we:
+# `-Pn` disable the discovery phase (or "ping phase")
+# `-n` do not perform IP address resolution
+# `-sO -p 1` perform a raw IP scan where the -p1 indicates ICMP type 8 messages
+```
 
 ## One Flow Communication in ICMP
 

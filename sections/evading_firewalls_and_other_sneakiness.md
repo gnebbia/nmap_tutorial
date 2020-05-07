@@ -1,11 +1,11 @@
-
+# nmap: Evading Firewalls
 We are going to make assumptions which are very probable for many
 firewalls, but won't be accurate, because they can vary from
 firewall to firewall. We can list as anti-scanning technologies:
 
-* Firewall
-* NAT (Network Address Translation)
-* IDS (Intrusion Detection System)
+- Firewall
+- NAT (Network Address Translation)
+- IDS (Intrusion Detection System)
 
 We are going to discuss each and how they will affect the result.
 
@@ -25,9 +25,9 @@ Decisions are primarily made based on the socket which is the
 combination "SourceIP,SourcePort and DestIP,DestPort". There are
 generally three types of firewall:
 
-* Stateless Packet Filter Firewall
-* Stateful Packet Filter Firewall
-* Application (aka Proxy) Firewall
+- Stateless Packet Filter Firewall
+- Stateful Packet Filter Firewall
+- Application (aka Proxy) Firewall
 
 We are not interested in the normal scans done with -sS or with
 -sT because in these cases we simply receive a response (or the

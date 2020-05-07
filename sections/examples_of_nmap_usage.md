@@ -1,3 +1,4 @@
+# nmap: Usage Examples
 
 Let's see now a real case example of NMAP usage, the first thing
 we do is:
@@ -16,9 +17,10 @@ network:
 
 ```sh
  nmap -sn -n 192.168.25.0/24
- # in this case, we disabled port
- # scanning with "-sn" and we disabled host name resolution with "
- # -n", in this way we get quickly the list of live hosts on the
+ # in this case, we:
+ # disabled port scanning with "-sn";
+ # we disabled host name resolution with "-n", 
+ # in this way we get quickly the list of live hosts on the
  # network, we didn't specify any specific option for host
  # enumeration, since we are doing this operation in a local
  # network, so no matter which options we would have used, it
