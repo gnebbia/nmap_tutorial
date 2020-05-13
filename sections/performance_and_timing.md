@@ -1,3 +1,4 @@
+# Performance and Timing
 
 When we scan a target, we must deal with the "Performance vs
 Accuracy" tradeoff, which is very important in network mapping.

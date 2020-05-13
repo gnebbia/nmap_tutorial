@@ -1,4 +1,4 @@
-
+# Timing Templates
 
 Since nmap as we have seen has many options to set the
 performance vs accuracy tradeoff, it even provides 6 "Timing
@@ -6,14 +6,16 @@ Templates" which will go from "super slow" to "crazy fast" which
 will let us not set every options manually. We can set one of
 these 6 templates:
 
-* -T 0 (paranoid) #super slow
-* -T 1 (sneaky)
-* -T 2 (polite)
-* -T 3 (normal) #this is the default option
-* -T 4 (aggressive)
-* -T 5 (insane) #super fast
+- -T 0 (paranoid) ;; super slow (serial, delay=5m)
+- -T 1 (sneaky)                 (serial, delay=15s)
+- -T 2 (polite)                 (serial, delay=0.4s)
+- -T 3 (normal)   ;; default    (parallel, monitors bw)
+- -T 4 (aggressive)             (parallel, progressively faster)
+- -T 5 (insane)   ;; super fast (parallel, progressively faster)
 
-let's see some example of usage of these timing templates:
+The delay reported is related to consecutive packets.
+
+Let's see some example of usage of these timing templates:
 
 ```sh
  nmap -T polite 109.121.12.11

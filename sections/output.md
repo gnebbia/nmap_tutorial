@@ -26,3 +26,12 @@ What I personally prefer in scanning activities is:
 nmap -oA filename_prefix
 ```
 
+Note that saving an output report is extremely useful
+also in cases where we are scanning large subnets and
+want to handle nmap crashes or reboots.
+Indeed, we can restore an interrupted scan from its template
+by doing:
+
+```sh
+nmap --resume <logfile_name>
+```
