@@ -1,3 +1,4 @@
+# Target Expansion
 
 We can express targets in various ways:
 
@@ -34,8 +35,14 @@ If we want to expand the list of scanned ip, we can do:
  # which will be scanned by specifying the mentioned target
  # expansion, in this case nmap won't try to see if the hosts are
  # up or not, and won't perform any port scan, but will just list
- # the ip mentioned in the expansion
+ # the ip mentioned in the expansion and try to resolve names through DNS
 ```
+If we also want to avoid any kind of DNS resolution and just have a list
+of IP addresses we can do:
+```sh
+nmap -n -sL 192.168.1.56/29
+```
+
 to pass a large list of targets to nmap, we can use:
 
 ```sh
