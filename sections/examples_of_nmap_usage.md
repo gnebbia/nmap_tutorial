@@ -164,3 +164,7 @@ vulnerabilities our system is affected we can do:
  # so it can be a very useful shortcut
 ```
 
+We can also perform port knocking with nmap, by doing:
+```sh
+for x in 7000 8000 9000; do nmap -Pn --host-timeout 201 --max-retries 0 -p $x 1.1.1.1; done
+```
