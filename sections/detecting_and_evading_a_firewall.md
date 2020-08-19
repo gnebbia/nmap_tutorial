@@ -1,12 +1,11 @@
-
 ## Detecting Firewalls
 
 Detecting a firewall is not easy, the most common tools to detect
 a firewall are:
 
-* --traceroute
-* -O
-* --badsum #this isn't always effective
+- `--traceroute`
+- `-O`
+- `--badsum`, this isn't always effective
 
 The badsum option is called as:
 ```sh
@@ -20,10 +19,14 @@ The badsum option is called as:
 
 ## Evading Firewalls
 
-There are two other ways to evade a firewall:
+There are different ways to evade a firewall:
 
-* Fragmentation fields of the IP header
-* Idle Scan (using Zombie Hosts)
+- Fragmentation fields of the IP header
+- Idle Scan (using Zombie Hosts)
+- Trusted source port
+
+There are many other details about firewall evasion here:
+[nmap firewall subversion](https://nmap.org/book/firewall-subversion.html)
 
 ###  Fragmentation fields of the IP Header
 
@@ -126,6 +129,31 @@ now let's see an example of idle scan from nmap:
  192.168.5.4 and our target host is 192.168.23.88
 ```
 
+### Trusted source port
+
+There's a quick trick with nmap we should always remember. Sometimes,
+network administrators will allow bi-directional port-based filtering
+when only egress filtering should by allowed. Whenever you need to
+bypass network rules, you should try using commonly allowed ports such
+as 22,53,80 and 443. This is what we did with nmap’s source port option.
+
+```sh
+nmap --source-port 53  <target>
+nmap --source-port 22  <target>
+nmap --source-port 80  <target>
+nmap --source-port 443 <target>
+```
+These types of scan are particularly useful and we should give them a try
+whenever nmap does not return any results (as if all ports are filtered
+or closed) with a scan while we think some results should be available.
+
+Once we find a working port we proceeded to setting up iptables to source 
+nat the port. We can do this with this rule:
+```sh
+iptables -t nat -A POSTROUTING -d <target> -p tcp -j SNAT --to :53
+# where instead of 53 we have to put the port that worked
+# with the nmap scan
+```
 
 ## NAT
 
