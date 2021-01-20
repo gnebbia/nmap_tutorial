@@ -231,7 +231,6 @@ done with the "--spoof-mac" option, here we can specify:
 * Vendor Name
 
 Let's see some examples of the above mentioned options:
-
 ```sh
  nmap -e eth0 218.45.187.23
  # we set as interface eth0 to scan the mentioned ip address
@@ -240,7 +239,7 @@ Let's see some examples of the above mentioned options:
 ```sh
  nmap -S 192.168.1.1 192.168.1.23
  # we set as source ip address the first mentioned IP and the
- scan is made on the second IP address
+ # scan is made on the second IP address
 ```
 
 ```sh
@@ -248,6 +247,11 @@ Let's see some examples of the above mentioned options:
  # in this case we make the target think, we have a Cisco network
  # card, by setting a specific format for the MAC address which the target will
  # recognize as Cisco, and plus additional data
+```
+Note that setting --spoof-mac 0 will generate a random MAC
+```sh
+ nmap --spoof-mac 0 192.168.1.23
+ # in this case we use a randomly generated mac address
 ```
 
 Another technique to hide our scans is by flooding the IDS with
@@ -275,3 +279,25 @@ we put, the more we hide, but the scan will take longer times,
 since nmap has to generate several packets to send to the target
 machine.
 
+
+### Fake Scan
+
+A possible use of this flag is to spoof the scan to make the targets think
+that someone else is scanning them. Imagine a company being repeatedly
+port scanned by a competitor! The -e option and -Pn are generally
+required for this sort of usage. Note that you usually won't receive
+reply packets back (they will be addressed to the IP you are spoofing),
+so Nmap won't produce useful reports.
+
+```sh
+# get a valid IP address or just do:
+./netenum.py -t 2m -i wlp1s0 -w active_hosts.txt
+# then get an IP address from the active_hosts file and do:
+nmap -S $active_ip $target_ip
+```
+
+
+P.S.: Another scenario to use `-S` is when Nmap is not be able to
+determine your source address (this can happen in certain circumstances
+and Nmap will tell you if this is the case). In this situation, use -S
+with the IP address of the interface you wish to send packets through.
