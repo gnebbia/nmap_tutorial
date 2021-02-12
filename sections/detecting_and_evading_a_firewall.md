@@ -22,11 +22,15 @@ The badsum option is called as:
 There are different ways to evade a firewall:
 
 - Fragmentation fields of the IP header
+- Scan Delay
 - Idle Scan (using Zombie Hosts)
 - Trusted source port
+- Badsum (check the presence of an intelligent firewall/IDS/IPS)
 
-There are many other details about firewall evasion here:
+There are other techniques (e.g., --data-length) and details about firewall evasion here:
+[nmap firewall/IDS bypass](https://nmap.org/book/man-bypass-firewalls-ids.html)
 [nmap firewall subversion](https://nmap.org/book/firewall-subversion.html)
+
 
 ###  Fragmentation fields of the IP Header
 
@@ -46,6 +50,7 @@ let's see some examples:
 ```
 
 ```sh
+ # note that MTU must be a multiple of 8
  nmap --mtu 24 223.23.23.12
 ```
 Since the TCP Header is 20 bytes, the packet sent is split into 3
@@ -63,6 +68,18 @@ issues:
   them to destination, in this case fragmentation doesn't work
   and we must use something else
 
+
+Used to fragment the packets (i.e. split them into smaller pieces) making
+it less likely that the packets will be detected by a firewall or IDS.
+An alternative to -f, but providing more control over the size of the
+packets: --mtu <number>, accepts a maximum transmission unit size to
+use for the packets sent. This must be a multiple of 8.
+
+### Scan Delay 
+
+We can use `--scan-delay <time>ms` to add a delay between packets
+sent. This is very useful if the network is unstable, but also for
+evading any time-based firewall/IDS triggers which may be in place
 
 ### Idle Scan
 
@@ -154,6 +171,14 @@ iptables -t nat -A POSTROUTING -d <target> -p tcp -j SNAT --to :53
 # where instead of 53 we have to put the port that worked
 # with the nmap scan
 ```
+
+### Badsum
+
+The `--badsum` option is used to generate in invalid checksum for
+packets. Any real TCP/IP stack would drop this packet, however, firewalls
+may potentially respond automatically, without bothering to check the
+checksum of the packet. As such, this switch can be used to determine
+the presence of a firewall/IDS.
 
 ## NAT
 
