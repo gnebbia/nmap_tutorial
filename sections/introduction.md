@@ -12,7 +12,7 @@ that depending on the situation, there may be various tunings
 that can be applied. These tunings can help us in order to:
 
 * gather more information;
-* be stelthier;
+* be stealthier;
 * bypass firewalls;
 * devise advanced analysis techniques;
 
